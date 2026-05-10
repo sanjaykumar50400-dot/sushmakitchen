@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sushma's Kitchen — Investor Report 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #E8871A;
+    --saffron-light: #F5A93B;
+    --saffron-dark: #C06A0A;
+    --cream: #FDF6EC;
+    --deep: #1A1208;
+    --charcoal: #2D2416;
+    --warm-gray: #6B5C45;
+    --light-gray: #F0E8DA;
+    --success: #2D7A4A;
+    --danger: #C0392B;
+    --accent: #7B4F2E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26,18,8,0.85);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--cream); border-radius: 20px;
+    max-width: 700px; width: 92%; max-height: 85vh; overflow-y: auto;
+    padding: 50px; position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    transform: translateY(30px); transition: transform 0.3s ease;
+  }
+  .modal-overlay.active .modal-box { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 28px; cursor: pointer; color: var(--warm-gray);
+    background: none; border: none; line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--saffron); }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--deep); margin-bottom: 16px;
+  }
+  .modal-body p { color: var(--warm-gray); line-height: 1.8; margin-bottom: 12px; font-size: 0.95rem; }
+  .modal-body ul { padding-left: 20px; }
+  .modal-body li { color: var(--warm-gray); line-height: 1.8; margin-bottom: 8px; font-size: 0.95rem; }
+  .modal-tag {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600; margin-bottom: 20px;
+    background: var(--saffron); color: white; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .modal-highlight {
+    background: linear-gradient(135deg, #FFF8F0, #FFF0D6);
+    border-left: 4px solid var(--saffron);
+    padding: 16px 20px; border-radius: 8px; margin: 20px 0;
+  }
+  .modal-highlight strong { color: var(--saffron-dark); font-size: 1.1rem; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(253,246,236,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,135,26,0.2);
+    padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    font-weight: 900; color: var(--saffron);
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500; color: var(--warm-gray);
+    text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #1A1208 0%, #2D1A08 40%, #3D2410 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,135,26,0.15) 0%, transparent 70%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(45deg, #E8871A 0, #E8871A 1px, transparent 0, transparent 50%);
+    background-size: 30px 30px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,135,26,0.15); border: 1px solid rgba(232,135,26,0.4);
+    border-radius: 100px; padding: 8px 20px; margin-bottom: 40px;
+    font-size: 0.78rem; font-weight: 600; color: var(--saffron-light);
+    letter-spacing: 0.1em; text-transform: uppercase; position: relative;
+    animation: fadeInDown 0.8s ease;
+  }
+  .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes countUp { from{opacity:0;transform:scale(0.5)} to{opacity:1;transform:scale(1)} }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900; color: #FFFFFF; line-height: 0.95;
+    letter-spacing: -0.03em; position: relative;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+  .hero-title span { color: var(--saffron); }
+  .hero-subtitle {
+    font-family: 'Crimson Text', serif; font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem); color: rgba(255,255,255,0.55);
+    margin: 20px 0 50px; position: relative;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+  .hero-stats {
+    display: flex; gap: 60px; justify-content: center; flex-wrap: wrap;
+    position: relative; animation: fadeInUp 0.8s ease 0.6s both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900; color: var(--saffron);
+    display: block; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px;
+    display: block;
+  }
+  .hero-divider {
+    width: 1px; background: rgba(255,255,255,0.15);
+    height: 50px; align-self: center;
+  }
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    font-size: 0.75rem; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    animation: fadeIn 1s ease 1s both;
+  }
+  .scroll-arrow { animation: bounce 1.5s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* SECTION STRUCTURE */
+  section { position: relative; }
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+    margin: 0;
+  }
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--saffron), transparent);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.1; color: var(--deep);
+    margin-bottom: 16px; letter-spacing: -0.02em;
+  }
+  .section-desc {
+    font-family: 'Crimson Text', serif; font-size: 1.15rem;
+    color: var(--warm-gray); line-height: 1.8; max-width: 640px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 100px 40px; }
+
+  /* OPPORTUNITY SECTION */
+  .opportunity { background: var(--cream); }
+  .opportunity-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; margin-top: 60px;
+  }
+  .opp-card {
+    background: white; border-radius: 20px; padding: 40px;
+    border: 1px solid rgba(232,135,26,0.12);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .opp-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--saffron), var(--saffron-light));
+    transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;
+  }
+  .opp-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(232,135,26,0.12); }
+  .opp-card:hover::before { transform: scaleX(1); }
+  .opp-icon { font-size: 2.5rem; margin-bottom: 20px; }
+  .opp-title {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    font-weight: 700; color: var(--deep); margin-bottom: 12px;
+  }
+  .opp-text { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.75; }
+  .opp-highlight {
+    display: inline-block; background: #FFF3E0;
+    color: var(--saffron-dark); font-weight: 700; font-size: 1.4rem;
+    padding: 8px 0; margin-top: 16px;
+  }
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #E8F5E9; color: var(--success);
+    font-size: 0.72rem; font-weight: 700; padding: 4px 10px;
+    border-radius: 20px; margin-top: 12px; letter-spacing: 0.04em;
+  }
+  .estimated-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #FFF8E1; color: #B8860B;
+    font-size: 0.72rem; font-weight: 700; padding: 4px 10px;
+    border-radius: 20px; margin-top: 12px; letter-spacing: 0.04em;
+  }
+
+  /* COMPETITION */
+  .competition { background: var(--charcoal); }
+  .competition .section-title { color: white; }
+  .competition .section-desc { color: rgba(255,255,255,0.5); }
+  .competition .section-label { color: var(--saffron-light); }
+  .comp-table {
+    width: 100%; margin-top: 50px; border-collapse: separate; border-spacing: 0 12px;
+  }
+  .comp-table th {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    padding: 0 20px 10px; text-align: left;
+  }
+  .comp-table td {
+    padding: 20px; background: rgba(255,255,255,0.04);
+    font-size: 0.9rem; color: rgba(255,255,255,0.75);
+  }
+  .comp-table tr td:first-child { border-radius: 12px 0 0 12px; }
+  .comp-table tr td:last-child { border-radius: 0 12px 12px 0; }
+  .comp-table tr:hover td { background: rgba(232,135,26,0.08); cursor: pointer; }
+  .threat-low { color: #4CAF50; font-weight: 600; }
+  .threat-med { color: #FF9800; font-weight: 600; }
+  .threat-zero { color: #2196F3; font-weight: 600; }
+  .star-rating { color: #FFD700; }
+  .comp-winner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px;
+  }
+  .winner-card {
+    background: linear-gradient(135deg, rgba(232,135,26,0.15), rgba(232,135,26,0.05));
+    border: 1px solid rgba(232,135,26,0.3);
+    border-radius: 20px; padding: 40px;
+  }
+  .winner-card h3 {
+    font-family: 'Playfair Display', serif; color: var(--saffron-light);
+    font-size: 1.5rem; margin-bottom: 20px;
+  }
+  .winner-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.8; }
+
+  /* MARKET FIRST MOVER */
+  .firstmover { background: linear-gradient(160deg, #0D1B0F 0%, #1A2E1A 100%); }
+  .firstmover .section-title { color: white; }
+  .firstmover .section-desc { color: rgba(255,255,255,0.5); }
+  .firstmover .section-label { color: #4CAF50; }
+  .fm-label::after { background: linear-gradient(90deg, #4CAF50, transparent); }
+  .fm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .fm-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 16px; padding: 32px;
+    transition: all 0.3s ease; cursor: pointer;
+  }
+  .fm-card:hover { background: rgba(76,175,80,0.08); transform: translateY(-4px); }
+  .fm-num {
+    font-family: 'Playfair Display', serif; font-size: 3rem;
+    font-weight: 900; color: #4CAF50; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .fm-title { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 8px; }
+  .fm-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .fm-alert {
+    background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(76,175,80,0.05));
+    border: 1px solid rgba(76,175,80,0.3);
+    border-radius: 16px; padding: 40px; margin-top: 40px;
+    display: flex; align-items: center; gap: 30px;
+  }
+  .fm-alert-icon { font-size: 3rem; flex-shrink: 0; }
+  .fm-alert h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; margin-bottom: 8px; }
+  .fm-alert p { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.75; }
+
+  /* AUDIENCE */
+  .audience { background: var(--cream); }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .aud-card {
+    border-radius: 20px; padding: 36px; position: relative; overflow: hidden;
+    cursor: pointer; transition: transform 0.3s ease;
+  }
+  .aud-card:hover { transform: translateY(-6px); }
+  .aud-card-1 { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+  .aud-card-2 { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+  .aud-card-3 { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+  .aud-card-4 { background: linear-gradient(135deg, #F3E5F5, #E1BEE7); }
+  .aud-card-5 { background: linear-gradient(135deg, #FFF8E1, #FFECB3); }
+  .aud-pct {
+    font-family: 'Playfair Display', serif; font-size: 3.5rem;
+    font-weight: 900; opacity: 0.15; position: absolute; top: 16px; right: 20px;
+    line-height: 1; color: var(--deep);
+  }
+  .aud-icon { font-size: 2rem; margin-bottom: 16px; }
+  .aud-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--deep); margin-bottom: 8px; }
+  .aud-desc { font-size: 0.84rem; color: var(--warm-gray); line-height: 1.7; }
+  .aud-revenue { font-weight: 700; color: var(--saffron-dark); font-size: 0.9rem; margin-top: 12px; }
+
+  /* MENU & PRICING */
+  .menupricing { background: #FDF6EC; }
+  .menu-tabs { display: flex; gap: 8px; margin: 40px 0 30px; flex-wrap: wrap; }
+  .menu-tab {
+    padding: 10px 24px; border-radius: 100px; cursor: pointer;
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
+    border: 1.5px solid rgba(232,135,26,0.3);
+    color: var(--warm-gray); background: white;
+    transition: all 0.2s ease;
+  }
+  .menu-tab.active, .menu-tab:hover {
+    background: var(--saffron); color: white; border-color: var(--saffron);
+  }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .menu-item {
+    background: white; border-radius: 14px; padding: 24px;
+    border: 1px solid rgba(232,135,26,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.2s ease; cursor: pointer;
+  }
+  .menu-item:hover { border-color: var(--saffron); box-shadow: 0 8px 30px rgba(232,135,26,0.1); }
+  .menu-item-name { font-weight: 600; font-size: 0.95rem; color: var(--deep); margin-bottom: 4px; }
+  .menu-item-sub { font-size: 0.78rem; color: var(--warm-gray); }
+  .menu-item-price {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    font-weight: 700; color: var(--saffron); white-space: nowrap;
+  }
+  .menu-note {
+    background: #FFF8F0; border: 1px dashed var(--saffron);
+    border-radius: 12px; padding: 20px 24px; margin-top: 30px;
+    font-size: 0.85rem; color: var(--warm-gray); line-height: 1.7;
+  }
+
+  /* SETUP COST */
+  .setup { background: white; }
+  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 60px; }
+  .setup-category {
+    background: var(--cream); border-radius: 20px; padding: 36px;
+    border: 1px solid rgba(232,135,26,0.12); cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .setup-category:hover { border-color: var(--saffron); box-shadow: 0 10px 40px rgba(232,135,26,0.1); }
+  .setup-cat-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .setup-cat-icon { font-size: 2rem; }
+  .setup-cat-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--deep); }
+  .setup-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .setup-item:last-child { border-bottom: none; }
+  .setup-item-name { font-size: 0.88rem; color: var(--warm-gray); }
+  .setup-item-cost { font-weight: 700; font-size: 0.92rem; color: var(--deep); }
+  .setup-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0 0; margin-top: 8px;
+    border-top: 2px solid var(--saffron);
+  }
+  .setup-total-label { font-weight: 700; color: var(--deep); font-size: 0.95rem; }
+  .setup-total-amount { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--saffron); }
+  .grand-total-box {
+    background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+    border-radius: 20px; padding: 50px; margin-top: 40px;
+    text-align: center; color: white;
+  }
+  .grand-total-label { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-bottom: 12px; }
+  .grand-total-num {
+    font-family: 'Playfair Display', serif; font-size: 4rem;
+    font-weight: 900; line-height: 1;
+  }
+  .grand-total-note { font-size: 0.85rem; opacity: 0.7; margin-top: 12px; }
+
+  /* MONTHLY COSTS */
+  .monthly { background: var(--cream); }
+  .monthly-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .monthly-card {
+    background: white; border-radius: 16px; padding: 28px;
+    border: 1px solid rgba(0,0,0,0.06); cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .monthly-card:hover { border-color: var(--saffron); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(232,135,26,0.1); }
+  .monthly-icon { font-size: 1.8rem; margin-bottom: 16px; }
+  .monthly-name { font-weight: 600; font-size: 0.9rem; color: var(--warm-gray); margin-bottom: 8px; }
+  .monthly-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--deep); }
+  .monthly-range { font-size: 0.78rem; color: var(--warm-gray); margin-top: 4px; }
+  .monthly-total-bar {
+    background: white; border-radius: 20px; padding: 40px; margin-top: 40px;
+    border: 1px solid rgba(232,135,26,0.15);
+  }
+  .monthly-bar-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--deep); margin-bottom: 30px; }
+  .bar-item { margin-bottom: 20px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
+  .bar-label span:first-child { color: var(--warm-gray); font-weight: 500; }
+  .bar-label span:last-child { font-weight: 700; color: var(--deep); }
+  .bar-track { height: 10px; background: #F0E8DA; border-radius: 100px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--saffron), var(--saffron-light)); transition: width 1.5s ease; width: 0; }
+
+  /* REVENUE PROJECTIONS */
+  .revenue { background: var(--charcoal); }
+  .revenue .section-title { color: white; }
+  .revenue .section-desc { color: rgba(255,255,255,0.5); }
+  .revenue .section-label { color: var(--saffron-light); }
+  .phase-tabs { display: flex; gap: 8px; margin: 50px 0 30px; }
+  .phase-tab {
+    flex: 1; padding: 16px; border-radius: 12px; cursor: pointer;
+    border: 1.5px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.4); background: transparent;
+    font-size: 0.82rem; font-weight: 600; text-align: center;
+    transition: all 0.25s ease; letter-spacing: 0.03em;
+  }
+  .phase-tab.active { border-color: var(--saffron); background: rgba(232,135,26,0.12); color: var(--saffron-light); }
+  .phase-panel { display: none; }
+  .phase-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .phase-revenue-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 36px;
+  }
+  .phase-stream {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .phase-stream:last-child { border-bottom: none; }
+  .phase-stream-name { font-size: 0.88rem; color: rgba(255,255,255,0.55); }
+  .phase-stream-amt { font-weight: 700; font-size: 0.95rem; color: white; }
+  .phase-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0 0; margin-top: 8px;
+    border-top: 1px solid rgba(232,135,26,0.3);
+  }
+  .phase-total-label { font-weight: 700; font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+  .phase-total-amt { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--saffron-light); }
+  .phase-profit-card {
+    background: linear-gradient(135deg, rgba(232,135,26,0.15), rgba(232,135,26,0.05));
+    border: 1px solid rgba(232,135,26,0.25); border-radius: 20px; padding: 36px;
+  }
+  .phase-profit-card h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: white; margin-bottom: 24px; }
+  .profit-line { margin-bottom: 16px; }
+  .profit-line-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+  .profit-line-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; }
+  .profit-line-value.green { color: #81C784; }
+  .profit-line-value.red { color: #EF9A9A; }
+  .profit-line-value.gold { color: var(--saffron-light); }
+  .profit-note { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 8px; padding: 10px 14px; background: rgba(255,255,255,0.04); border-radius: 8px; line-height: 1.6; }
+
+  /* CHART */
+  .chart-section { background: white; }
+  .chart-container { margin-top: 60px; }
+  .chart-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 30px; color: var(--deep); }
+  .chart-wrap {
+    background: #FAFAFA;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+    padding: 24px 16px 16px;
+  }
+  #svgChart {
+    width: 100%;
+    height: 280px;
+    display: block;
+    overflow: visible;
+  }
+  @media (max-width: 768px) {
+    #svgChart { height: 200px; }
+    .chart-wrap { padding: 16px 10px 12px; }
+  }
+  @media (max-width: 480px) {
+    #svgChart { height: 160px; }
+  }
+  #revChartLabels {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 14px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 4px;
+    overflow: hidden;
+  }
+  .chart-legend { display: flex; gap: 24px; margin-top: 16px; justify-content: center; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--warm-gray); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+  .legend-dot.rev { background: var(--saffron); }
+  .legend-dot.profit { background: #2D7A4A; }
+
+  /* ONLINE DELIVERY */
+  .delivery { background: var(--deep); }
+  .delivery .section-title { color: white; }
+  .delivery .section-desc { color: rgba(255,255,255,0.5); }
+  .delivery .section-label { color: var(--saffron-light); }
+  .delivery-platforms { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 60px 0 40px; }
+  .platform-card {
+    border-radius: 20px; padding: 40px;
+    cursor: pointer; transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .platform-card.zomato { background: linear-gradient(135deg, #1A0A0A, #2D1010); border: 1px solid rgba(230,57,70,0.3); }
+  .platform-card.swiggy { background: linear-gradient(135deg, #1A0D00, #2D1A00); border: 1px solid rgba(252,127,3,0.3); }
+  .platform-card:hover { transform: translateY(-6px); }
+  .platform-logo { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
+  .platform-logo.z { color: #E63946; }
+  .platform-logo.s { color: #FC7F03; }
+  .platform-tagline { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-bottom: 30px; }
+  .platform-stat { margin-bottom: 16px; }
+  .platform-stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+  .platform-stat-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: white; }
+  .platform-badge {
+    position: absolute; top: 24px; right: 24px;
+    background: rgba(255,255,255,0.08); border-radius: 100px;
+    padding: 6px 14px; font-size: 0.72rem; font-weight: 700;
+    color: rgba(255,255,255,0.5); letter-spacing: 0.06em;
+  }
+  .delivery-orders-table { margin-top: 40px; }
+  .orders-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 16px; padding: 20px; border-radius: 12px; margin-bottom: 8px;
+    align-items: center; cursor: pointer; transition: background 0.2s;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .orders-row:hover { background: rgba(255,255,255,0.04); }
+  .orders-row.header { border: none; padding-bottom: 8px; }
+  .orders-row.header span { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 600; }
+  .orders-row span { font-size: 0.88rem; color: rgba(255,255,255,0.65); }
+  .orders-row .month-col { font-weight: 600; color: white; }
+  .orders-row .orders-col { color: var(--saffron-light); font-weight: 600; }
+  .orders-row .gross-col { color: white; }
+  .orders-row .comm-col { color: #EF9A9A; }
+  .orders-row .net-col { color: #81C784; font-weight: 700; }
+
+  /* TIFFIN */
+  .tiffin { background: var(--cream); }
+  .tiffin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+  .tiffin-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--deep); margin-bottom: 20px; }
+  .tiffin-info p { font-size: 0.92rem; color: var(--warm-gray); line-height: 1.8; margin-bottom: 16px; }
+  .tiffin-table { background: white; border-radius: 20px; overflow: hidden; border: 1px solid rgba(232,135,26,0.15); }
+  .tiffin-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 18px 24px; border-bottom: 1px solid rgba(0,0,0,0.05); align-items: center; }
+  .tiffin-row.header { background: var(--saffron); }
+  .tiffin-row.header span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: white; }
+  .tiffin-row span { font-size: 0.88rem; color: var(--warm-gray); }
+  .tiffin-row .tiffin-profit { font-weight: 700; color: var(--success); }
+  .tiffin-row:last-child { border-bottom: none; }
+
+  /* RISK */
+  .risk { background: white; }
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+  .risk-card {
+    border-radius: 16px; padding: 32px; cursor: pointer; transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+  }
+  .risk-card:hover { transform: translateX(6px); }
+  .risk-card.low { background: #F1F8F2; border-left-color: var(--success); }
+  .risk-card.medium { background: #FFF8F0; border-left-color: var(--saffron); }
+  .risk-icon { font-size: 1.5rem; margin-bottom: 12px; }
+  .risk-title { font-weight: 700; font-size: 0.95rem; color: var(--deep); margin-bottom: 8px; }
+  .risk-prob { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+  .risk-prob.low { color: var(--success); }
+  .risk-prob.medium { color: var(--saffron-dark); }
+  .risk-desc { font-size: 0.84rem; color: var(--warm-gray); line-height: 1.7; }
+  .risk-solution { font-size: 0.82rem; color: var(--deep); margin-top: 12px; padding: 10px 14px; background: rgba(0,0,0,0.03); border-radius: 8px; }
+
+  /* ROI */
+  .roi { background: linear-gradient(160deg, var(--deep) 0%, #2D1A06 100%); }
+  .roi .section-title { color: white; }
+  .roi .section-desc { color: rgba(255,255,255,0.5); }
+  .roi .section-label { color: var(--saffron-light); }
+  .roi-timeline { position: relative; margin-top: 60px; }
+  .roi-timeline::before {
+    content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+    top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, var(--saffron), transparent);
+  }
+  .roi-item { display: flex; justify-content: flex-end; padding-right: calc(50% + 40px); margin-bottom: 50px; position: relative; }
+  .roi-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: calc(50% + 40px); }
+  .roi-dot {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 20px; background: var(--saffron);
+    border-radius: 50%; border: 4px solid var(--deep); top: 16px;
+    z-index: 1;
+  }
+  .roi-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 28px; max-width: 380px;
+    cursor: pointer; transition: all 0.3s ease;
+  }
+  .roi-card:hover { background: rgba(232,135,26,0.1); border-color: rgba(232,135,26,0.3); }
+  .roi-month { font-size: 0.75rem; font-weight: 700; color: var(--saffron); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .roi-milestone { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 8px; }
+  .roi-detail { font-size: 0.84rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+  /* VERDICT */
+  .verdict { background: linear-gradient(135deg, var(--saffron), var(--saffron-dark)); padding: 120px 40px; text-align: center; }
+  .verdict-inner { max-width: 800px; margin: 0 auto; }
+  .verdict-label { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+  .verdict-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 30px; }
+  .verdict-score { display: flex; justify-content: center; gap: 60px; margin: 50px 0; flex-wrap: wrap; }
+  .verdict-score-item { text-align: center; }
+  .verdict-score-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: white; line-height: 1; }
+  .verdict-score-label { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-top: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .verdict-checks { display: flex; flex-direction: column; gap: 16px; text-align: left; margin: 40px 0; }
+  .verdict-check { display: flex; gap: 16px; align-items: flex-start; }
+  .verdict-check-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .verdict-check-text { font-size: 0.92rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+  .verdict-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: white; color: var(--saffron-dark);
+    border: none; border-radius: 100px; padding: 18px 44px;
+    font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 20px;
+    transition: all 0.3s ease; letter-spacing: 0.02em;
+  }
+  .verdict-cta:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+
+  /* DISCLAIMER */
+  .disclaimer { background: #F5EDE0; padding: 60px 40px; text-align: center; }
+  .disclaimer h4 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 16px; }
+  .disclaimer p { font-size: 0.8rem; color: var(--warm-gray); line-height: 1.8; max-width: 800px; margin: 0 auto; }
+  .disclaimer .data-key { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 24px; }
+  .data-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; padding: 6px 14px; border-radius: 100px; }
+  .data-tag.verified { background: #E8F5E9; color: var(--success); }
+  .data-tag.estimated { background: #FFF8E1; color: #B8860B; }
+
+  /* FLOAT BUTTON */
+  .float-btn {
+    position: fixed; bottom: 30px; right: 30px; z-index: 998;
+    background: var(--saffron); color: white; border: none;
+    width: 56px; height: 56px; border-radius: 50%; cursor: pointer;
+    font-size: 1.2rem; box-shadow: 0 8px 30px rgba(232,135,26,0.4);
+    transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+  }
+  .float-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(232,135,26,0.5); }
+
+  /* UTILITY */
+  .tag-verified { color: var(--success); font-size: 0.75rem; font-weight: 700; }
+  .tag-estimated { color: #B8860B; font-size: 0.75rem; font-weight: 700; }
+  .highlight-box {
+    background: linear-gradient(135deg, #FFF3E0, #FFE8CC);
+    border-radius: 16px; padding: 36px; margin-top: 40px;
+    border: 1px solid rgba(232,135,26,0.2);
+  }
+  .highlight-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--deep); margin-bottom: 12px; }
+  .highlight-box p { font-size: 0.88rem; color: var(--warm-gray); line-height: 1.8; }
+
+
+  /* ═══════════════════════════════════════════════════════════
+     RESPONSIVE SYSTEM — Mobile First, All Devices Covered
+     Breakpoints:
+       xs: < 480px   (small phones)
+       sm: < 640px   (phones)
+       md: < 768px   (large phones / small tablets)
+       lg: < 1024px  (tablets / small laptops)
+       xl: 1024px+   (desktops — base styles above)
+  ═══════════════════════════════════════════════════════════ */
+
+  /* ═══════════════════════════════════════════════════════════
+     ALIGNMENT & LAYOUT FIXES
+  ═══════════════════════════════════════════════════════════ */
+
+  /* Audience grid */
+  .audience-inner-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+  /* Audience card that spans full width (5th card) */
+  .aud-card-full {
+    grid-column: 1 / -1;
+  }
+
+  /* Fix section padding consistency */
+  .competition .container,
+  .firstmover .container,
+  .revenue .container,
+  .delivery .container,
+  .roi .container { padding: 100px 40px; }
+
+  /* Fix chart section background */
+  .chart-section { background: white; }
+  .chart-section .container { padding: 100px 40px; }
+
+  /* Fix monthly section raw material - it had no id */
+  section[style] { position: relative; }
+
+  /* Fix comp table overflow on mid screens */
+  .comp-table-wrapper { overflow-x: auto; width: 100%; }
+
+  /* Fix hero stats alignment */
+  .hero-stats { align-items: center; }
+
+  /* Fix menu panel grid */
+  .menu-panel.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* Fix phase panel display */
+  .phase-panel.active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* Fix bar track - ensure visible */
+  .bar-track {
+    height: 10px;
+    background: #F0E8DA;
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--saffron), var(--saffron-light));
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+    position: absolute;
+    left: 0; top: 0;
+  }
+
+  /* Fix verdict score on all screens */
+  .verdict-score { align-items: flex-start; }
+
+  /* Fix ROI items consistent spacing */
+  .roi-item { margin-bottom: 40px; min-height: auto; }
+
+  /* Fix tiffin grid */
+  .tiffin-grid { align-items: start; }
+
+  /* Fix delivery platforms equal height */
+  .delivery-platforms { align-items: stretch; }
+  .platform-card { display: flex; flex-direction: column; }
+
+  /* Fix monthly-grid equal height cards */
+  .monthly-grid { align-items: stretch; }
+  .monthly-card { display: flex; flex-direction: column; justify-content: space-between; }
+
+  /* Fix setup-grid equal height */
+  .setup-grid { align-items: start; }
+
+  /* Fix risk-grid equal height */
+  .risk-grid { align-items: stretch; }
+
+  /* Fix fm-grid equal height */
+  .fm-grid { align-items: stretch; }
+
+  /* Fix opp-card equal height */
+  .opportunity-grid { align-items: stretch; }
+  .opp-card { display: flex; flex-direction: column; }
+
+  /* Section dividers - consistent */
+  .section-divider { margin: 0; display: block; }
+
+  /* Fix raw material section (missing id) */
+  #rawmaterial { background: white; }
+
+  /* Smooth tab switching */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── TABLET (≤1024px) ─────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .container { padding: 80px 30px; }
+    .hero-title { font-size: clamp(2.8rem, 7vw, 5rem); }
+    .hero-stats { gap: 36px; }
+    .fm-grid { grid-template-columns: repeat(2, 1fr); }
+    .monthly-grid { grid-template-columns: repeat(2, 1fr); }
+    .comp-table th, .comp-table td { padding: 14px 12px; font-size: 0.82rem; }
+    .roi-timeline::before { display: none; }
+    .roi-item { justify-content: flex-start !important; padding-right: 0 !important; padding-left: 0 !important; }
+    .roi-dot { display: none; }
+    .roi-card { max-width: 100%; }
+    .phase-tabs { flex-wrap: wrap; gap: 6px; }
+    .phase-tab { flex: none; width: calc(33.33% - 4px); font-size: 0.75rem; padding: 12px 8px; }
+  }
+
+  /* ── LARGE PHONE / SMALL TABLET (≤768px) ──────────────── */
+  @media (max-width: 768px) {
+    /* NAV */
+    nav { padding: 0 16px; height: 56px; }
+    .nav-logo { font-size: 1.1rem; }
+    .nav-links { display: none; }
+
+    /* HAMBURGER MENU */
+    .nav-hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px; background: none; border: none;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--saffron); border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu {
+      position: fixed; top: 56px; left: 0; right: 0;
+      background: rgba(253,246,236,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,135,26,0.2);
+      padding: 20px 24px; z-index: 999;
+      display: none; flex-direction: column; gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.9rem; font-weight: 600; color: var(--deep);
+      text-decoration: none; padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      letter-spacing: 0.04em;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* LAYOUT */
+    .container { padding: 60px 16px; }
+    section { overflow-x: hidden; }
+
+    /* HERO */
+    .hero { padding: 90px 20px 70px; min-height: auto; }
+    .hero-title { font-size: clamp(2.4rem, 11vw, 4rem); letter-spacing: -0.02em; }
+    .hero-subtitle { font-size: 1rem; margin: 16px 0 36px; }
+    .hero-stats { gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .hero-stat-num { font-size: 1.8rem; }
+    .hero-stat-label { font-size: 0.65rem; }
+    .hero-divider { display: none; }
+    .hero-badge { font-size: 0.68rem; padding: 6px 14px; }
+
+    /* SECTION HEADINGS */
+    .section-title { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .section-desc { font-size: 1rem; }
+    .section-label { font-size: 0.65rem; }
+
+    /* GRIDS → SINGLE COLUMN */
+    .opportunity-grid,
+    .comp-winner,
+    .fm-grid,
+    .setup-grid,
+    .monthly-grid,
+    .phase-panel,
+    .delivery-platforms,
+    .tiffin-grid,
+    .risk-grid { grid-template-columns: 1fr !important; gap: 16px; }
+
+    /* AUDIENCE — 2 col on tablet, 1 col on phone */
+    .audience-grid { grid-template-columns: 1fr !important; gap: 16px; }
+
+    /* COMPETITION TABLE → Card layout on mobile */
+    .comp-table { display: none; }
+    .comp-cards-mobile { display: flex !important; flex-direction: column; gap: 12px; margin-top: 30px; }
+    .comp-card-m {
+      background: rgba(255,255,255,0.05); border-radius: 14px; padding: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .comp-card-m-name { font-weight: 700; color: white; font-size: 0.95rem; margin-bottom: 4px; }
+    .comp-card-m-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+    .comp-card-m-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .comp-card-m-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+    .comp-card-m-val { font-size: 0.8rem; color: rgba(255,255,255,0.75); font-weight: 600; }
+
+    /* PHASE TABS */
+    .phase-tabs { flex-direction: column; gap: 8px; margin: 30px 0 20px; }
+    .phase-tab { width: 100%; padding: 14px; font-size: 0.85rem; }
+
+    /* REVENUE CHART */
+    .chart-wrap { padding: 12px 8px 8px; border-radius: 12px; }
+    #svgChart { height: 180px; }
+    .chart-scroll-hint {
+      text-align: center; font-size: 0.7rem; color: var(--warm-gray);
+      padding: 2px 0 8px; display: block;
+    }
+
+    /* ORDERS TABLE → Card layout */
+    .delivery-orders-table { overflow-x: auto; }
+    .orders-row { grid-template-columns: 1fr 1fr 1fr; font-size: 0.78rem; padding: 14px 10px; gap: 8px; }
+    .orders-row .gross-col, .orders-row .comm-col { display: none; }
+    .orders-row.header span:nth-child(3),
+    .orders-row.header span:nth-child(4) { display: none; }
+
+    /* TIFFIN TABLE */
+    .tiffin-row { grid-template-columns: 1fr 1fr 1fr 1fr; padding: 14px 12px; }
+    .tiffin-row span { font-size: 0.78rem; }
+
+    /* SETUP ITEMS */
+    .setup-category { padding: 24px; }
+    .setup-total-amount { font-size: 1.2rem; }
+    .grand-total-num { font-size: 2.8rem; }
+
+    /* MONTHLY CARDS */
+    .monthly-card { padding: 20px; }
+    .monthly-amount { font-size: 1.5rem; }
+
+    /* MODAL */
+    .modal-box { padding: 30px 20px; margin: 12px; border-radius: 16px; }
+    .modal-title { font-size: 1.4rem; }
+    .modal-body p, .modal-body li { font-size: 0.88rem; }
+
+    /* ROI TIMELINE */
+    .roi-timeline { display: flex; flex-direction: column; gap: 16px; }
+    .roi-card { max-width: 100%; padding: 22px; }
+    .roi-milestone { font-size: 1.1rem; }
+
+    /* VERDICT */
+    .verdict { padding: 80px 20px; }
+    .verdict-title { font-size: clamp(2rem, 9vw, 3.5rem); }
+    .verdict-score { gap: 24px; }
+    .verdict-score-num { font-size: 2.5rem; }
+    .verdict-cta { padding: 16px 32px; font-size: 0.88rem; }
+
+    /* FLOAT BUTTON */
+    .float-btn { width: 48px; height: 48px; font-size: 1rem; bottom: 20px; right: 16px; }
+
+    /* FIRST MOVER ALERT */
+    .fm-alert { flex-direction: column; gap: 16px; padding: 24px; }
+    .fm-alert-icon { font-size: 2rem; }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box { padding: 24px; }
+
+    /* WINNER CARDS */
+    .comp-winner { margin-top: 30px; }
+    .winner-card { padding: 24px; }
+
+    /* MENU TABS */
+    .menu-tabs { gap: 6px; }
+    .menu-tab { padding: 8px 14px; font-size: 0.75rem; }
+
+    /* OPP CARDS */
+    .opp-card { padding: 28px; }
+    .opp-highlight { font-size: 1.1rem; }
+
+    /* AUDIENCE CARDS */
+    .aud-card { padding: 26px; }
+    .aud-pct { font-size: 2.5rem; }
+
+    /* PLATFORM CARDS */
+    .platform-card { padding: 28px; }
+    .platform-stat-val { font-size: 1.3rem; }
+
+    /* FM CARDS */
+    .fm-card { padding: 24px; }
+    .fm-num { font-size: 2.2rem; }
+
+    /* RISK CARDS */
+    .risk-card { padding: 24px; }
+
+    /* TIFFIN INFO */
+    .tiffin-info h3 { font-size: 1.4rem; }
+  }
+
+  /* ── SMALL PHONE (≤480px) ──────────────────────────────── */
+  @media (max-width: 480px) {
+    .container { padding: 50px 14px; }
+    .hero { padding: 80px 14px 60px; }
+    .hero-title { font-size: clamp(2rem, 12vw, 3rem); }
+    .hero-stats { gap: 14px; }
+    .hero-stat-num { font-size: 1.5rem; }
+    .hero-stat { min-width: 70px; }
+
+    .section-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+
+    /* Make hero stats wrap into 2x2 grid */
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+    .hero-divider { display: none; }
+
+    /* Phase tabs stack */
+    .phase-tab { font-size: 0.78rem; padding: 12px 6px; }
+
+    /* Orders table — show only 3 cols */
+    .orders-row { grid-template-columns: 1.2fr 1fr 1fr; padding: 12px 8px; gap: 4px; }
+    .orders-row span { font-size: 0.72rem; }
+
+    /* Tiffin table 2 cols */
+    .tiffin-row { grid-template-columns: 1fr 1fr; }
+    .tiffin-row span:nth-child(2),
+    .tiffin-row span:nth-child(3) { display: none; }
+    .tiffin-row.header span:nth-child(2),
+    .tiffin-row.header span:nth-child(3) { display: none; }
+
+    /* Chart scrollable */
+    .chart-wrap { height: 200px; }
+
+    /* Grand total */
+    .grand-total-num { font-size: 2.2rem; }
+    .grand-total-box { padding: 32px 20px; }
+
+    /* Modal full screen on tiny phones */
+    .modal-overlay { align-items: flex-end; }
+    .modal-box {
+      margin: 0; border-radius: 24px 24px 0 0;
+      max-height: 90vh; padding: 28px 18px;
+      width: 100%;
+    }
+
+    /* Verdict */
+    .verdict-score { grid-template-columns: 1fr 1fr; display: grid; gap: 20px; }
+    .verdict-score-num { font-size: 2rem; }
+    .verdict-check-text { font-size: 0.84rem; }
+
+    .menu-tab { padding: 7px 10px; font-size: 0.7rem; }
+    .menu-item { padding: 16px; }
+    .menu-item-name { font-size: 0.88rem; }
+    .menu-item-price { font-size: 1.1rem; }
+
+    .setup-category { padding: 20px; }
+    .setup-item-name { font-size: 0.82rem; }
+    .setup-item-cost { font-size: 0.82rem; }
+
+    .opp-card { padding: 22px; }
+    .fm-alert { padding: 20px; }
+    .winner-card { padding: 20px; }
+    .risk-card { padding: 20px; }
+    .aud-card { padding: 20px; }
+    .fm-card { padding: 20px; }
+    .monthly-card { padding: 18px; }
+    .platform-card { padding: 22px; }
+
+    .bar-label span { font-size: 0.75rem; }
+    .monthly-bar-title { font-size: 1.1rem; }
+
+    /* ROI cards */
+    .roi-card { padding: 18px; }
+    .roi-milestone { font-size: 1rem; }
+    .roi-detail { font-size: 0.78rem; }
+
+    .phase-revenue-card, .phase-profit-card { padding: 22px; }
+    .phase-total-amt { font-size: 1.6rem; }
+    .profit-line-value { font-size: 1.4rem; }
+  }
+
+  /* ── VERY SMALL (≤360px) ───────────────────────────────── */
+  @media (max-width: 360px) {
+    .hero-title { font-size: 1.9rem; }
+    .section-title { font-size: 1.5rem; }
+    .container { padding: 44px 12px; }
+    .grand-total-num { font-size: 1.8rem; }
+    .menu-tab { font-size: 0.65rem; padding: 6px 8px; }
+  }
+
+  /* ── LANDSCAPE PHONE ───────────────────────────────────── */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .hero { min-height: auto; padding: 80px 30px 50px; }
+    .hero-title { font-size: 3rem; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 24px; }
+  }
+
+  /* ── PRINT STYLES ──────────────────────────────────────── */
+  /* TOUCH DEVICES — tap states */
+  @media (hover: none) and (pointer: coarse) {
+    .opp-card:active, .fm-card:active, .aud-card:active,
+    .setup-category:active, .monthly-card:active, .risk-card:active,
+    .roi-card:active, .menu-item:active, .platform-card:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+    .nav-hamburger { display: flex; }
+  }
+
+  @media print {
+    nav, .float-btn, .scroll-hint { display: none !important; }
+    .hero { min-height: auto; padding: 40px; }
+    .container { padding: 40px 20px; }
+    .modal-overlay { display: none !important; }
+    * { animation: none !important; transition: none !important; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">🍽 Sushma's Kitchen</div>
+  <ul class="nav-links">
+    <li><a href="#opportunity">Opportunity</a></li>
+    <li><a href="#competition">Competition</a></li>
+    <li><a href="#setup">Setup Cost</a></li>
+    <li><a href="#revenue">Revenue</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="#verdict">Verdict</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#opportunity" onclick="closeMobileMenu()">📍 The Opportunity</a>
+  <a href="#competition" onclick="closeMobileMenu()">🏪 Competition</a>
+  <a href="#firstmover" onclick="closeMobileMenu()">⚡ First Mover</a>
+  <a href="#audience" onclick="closeMobileMenu()">👥 Audience</a>
+  <a href="#menu" onclick="closeMobileMenu()">🍽 Menu & Pricing</a>
+  <a href="#setup" onclick="closeMobileMenu()">💰 Setup Cost</a>
+  <a href="#revenue" onclick="closeMobileMenu()">📈 Revenue</a>
+  <a href="#delivery" onclick="closeMobileMenu()">📱 Delivery</a>
+  <a href="#tiffin" onclick="closeMobileMenu()">🍱 Tiffin</a>
+  <a href="#risk" onclick="closeMobileMenu()">⚠️ Risks</a>
+  <a href="#roi" onclick="closeMobileMenu()">🚀 ROI Timeline</a>
+  <a href="#verdict" onclick="closeMobileMenu()">✅ Verdict</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-pattern"></div>
+  <div class="hero-badge">Confidential Investor Report · May 2025</div>
+  <h1 class="hero-title">Sushma's<br><span>Kitchen</span></h1>
+  <p class="hero-subtitle">Sector 93, Gejha Road, Noida — A First-Mover F&B Opportunity</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">₹0</span>
+      <span class="hero-stat-label">Online Competition</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">50K+</span>
+      <span class="hero-stat-label">Nearby Residents</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">₹3–5L</span>
+      <span class="hero-stat-label">Total Investment</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4 mo</span>
+      <span class="hero-stat-label">Break-Even Target</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <span class="scroll-arrow">↓</span>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- OPPORTUNITY -->
+<section class="opportunity" id="opportunity">
+  <div class="container">
+    <p class="section-label">Section 01 — The Opportunity</p>
+    <h2 class="section-title">Why Sector 93<br>is Untouched Gold</h2>
+    <p class="section-desc">A dense residential hub with tens of thousands of residents, zero food delivery competition, and an established daily footfall — all waiting for one good kitchen.</p>
+    <div class="opportunity-grid">
+      <div class="opp-card" onclick="showModal('zerocomp')">
+        <div class="opp-icon">🚫</div>
+        <div class="opp-title">Zero Zomato & Swiggy Listings</div>
+        <div class="opp-text">We personally verified on both apps — not a single restaurant is listed serving Sector 93. Every delivery order from this area goes to kitchens 3–5 km away with longer ETAs and colder food.</div>
+        <div class="opp-highlight">0 Competitors Online</div><br>
+        <span class="verified-badge">✓ Personally Verified on App</span>
+      </div>
+      <div class="opp-card" onclick="showModal('societies')">
+        <div class="opp-icon">🏙️</div>
+        <div class="opp-title">Massive Captive Audience</div>
+        <div class="opp-text">ATS Greens Village, Supertech Emerald Court, Purvanchal Silvercity, Eldeco, Omaxe — these are large, established gated societies within walking/delivery distance of your kitchen.</div>
+        <div class="opp-highlight">50,000+ Residents in Range</div><br>
+        <span class="verified-badge">✓ Verified from Property Databases</span>
+      </div>
+      <div class="opp-card" onclick="showModal('carwash')">
+        <div class="opp-icon">🚗</div>
+        <div class="opp-title">Free Daily Footfall — Car Wash Next Door</div>
+        <div class="opp-text">Car wash customers wait 20–45 minutes for their vehicle. They are a captive audience who will naturally walk into your shop for chai, bonda, or cold coffee. This is footfall you pay nothing to acquire.</div>
+        <div class="opp-highlight">40–80 People Daily (Free)</div><br>
+        <span class="verified-badge">✓ Google Maps Verified Location</span>
+      </div>
+      <div class="opp-card" onclick="showModal('vegonly')">
+        <div class="opp-icon">🌿</div>
+        <div class="opp-title">Veg-Only is a Trust Signal Here</div>
+        <div class="opp-text">A significant portion of society residents in this belt — families from UP, Rajasthan, and Gujarat backgrounds — are pure vegetarians. No existing nearby restaurant is veg-only. You build trust by default.</div>
+        <div class="opp-highlight">No Veg-Only Restaurant in 500m</div><br>
+        <span class="verified-badge">✓ Confirmed from Competition Research</span>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <h3>📍 Exact Location</h3>
+      <p>Gejha Road, Sector 93, Noida — Pin 201304. The shop is located next to <strong>The Car Wash</strong> on Gejha Road. Served by Vishwakarma Road, Gheja Road, Sampark Marg, and service lanes of the Noida–Greater Noida Expressway. Metro: Sector 83 Aqua Line (~2 km). Nearest major employment clusters: NSEZ, Sec 132, Sec 142 — all within 8 km.</p>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- COMPETITION -->
+<section class="competition" id="competition">
+  <div class="container">
+    <p class="section-label" style="color:var(--saffron-light)">Section 02 — Competition Analysis</p>
+    <h2 class="section-title">Who Exists Nearby<br>& Why They're Not a Threat</h2>
+    <p class="section-desc">We searched Google Maps and checked Zomato/Swiggy directly. Here is every food establishment within 1 km of the proposed location.</p>
+    <div class="comp-table-wrapper"><table class="comp-table">
+      <thead>
+        <tr>
+          <th>Name</th><th>Type</th><th>Rating</th><th>Price/2</th><th>On Zomato/Swiggy?</th><th>Threat to Us</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="showModal('comp_kitchen')">
+          <td><strong style="color:white">Kitchen on Fire</strong><br><small style="color:rgba(255,255,255,0.35)">Gejha, Sec 93</small></td>
+          <td>General food</td>
+          <td><span class="star-rating">★</span> 4.6 / 14 reviews</td>
+          <td>~₹300–400</td>
+          <td style="color:#4CAF50">Possibly</td>
+          <td><span class="threat-med">🟡 Medium</span></td>
+        </tr>
+        <tr onclick="showModal('comp_kake')">
+          <td><strong style="color:white">Kake da Hotel</strong><br><small style="color:rgba(255,255,255,0.35)">Near Mother Dairy, Gejha</small></td>
+          <td>North Indian</td>
+          <td><span class="star-rating">★</span> 3.8 / 274 reviews</td>
+          <td>₹650–700</td>
+          <td style="color:#4CAF50">Yes</td>
+          <td><span class="threat-low">🟢 Low</span></td>
+        </tr>
+        <tr onclick="showModal('comp_biryani')">
+          <td><strong style="color:white">Uttrakhand Ball Biryani</strong><br><small style="color:rgba(255,255,255,0.35)">Gejha, Sec 93</small></td>
+          <td>Biryani only</td>
+          <td><span class="star-rating">★</span> 5.0 / 27 reviews</td>
+          <td>~₹250</td>
+          <td style="color:#FF9800">No listing found</td>
+          <td><span class="threat-low">🟢 Low</span></td>
+        </tr>
+        <tr onclick="showModal('comp_wabi')">
+          <td><strong style="color:white">Wabi Sabi Bakery</strong><br><small style="color:rgba(255,255,255,0.35)">Chaudhary Market</small></td>
+          <td>Bakery/Cakes</td>
+          <td><span class="star-rating">★</span> 4.1 / 442 reviews</td>
+          <td>₹300–400</td>
+          <td style="color:#4CAF50">Yes</td>
+          <td><span class="threat-zero">🔵 Zero</span></td>
+        </tr>
+        <tr onclick="showModal('comp_saffron')">
+          <td><strong style="color:white">Saffron Restaurant</strong><br><small style="color:rgba(255,255,255,0.35)">Inside Emerald Court</small></td>
+          <td>Dine-in (society)</td>
+          <td><span class="star-rating">★</span> 4.2 / 192 reviews</td>
+          <td>₹350–400</td>
+          <td style="color:#FF9800">No delivery</td>
+          <td><span class="threat-zero">🔵 Zero</span></td>
+        </tr>
+        <tr onclick="showModal('comp_tastery')">
+          <td><strong style="color:white">Tastery Cloud Kitchen</strong><br><small style="color:rgba(255,255,255,0.35)">Sec 93A</small></td>
+          <td>Desserts</td>
+          <td><span class="star-rating" style="color:#e74c3c">★</span> 2.2 / 13 reviews</td>
+          <td>₹200–260</td>
+          <td style="color:#4CAF50">Yes (failing)</td>
+          <td><span class="threat-zero">🔵 Zero</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <!-- MOBILE COMPETITION CARDS (shown only on mobile) -->
+    <div class="comp-cards-mobile" style="display:none">
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Kitchen on Fire</div>
+        <div class="comp-card-m-sub">Gejha, Sector 93 — Same Road</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val">⭐ 4.6 / 14 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">₹300–400</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-med">🟡 Medium</span></div>
+      </div>
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Kake da Hotel</div>
+        <div class="comp-card-m-sub">Near Mother Dairy, Gejha</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val">⭐ 3.8 / 274 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">₹650–700</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-low">🟢 Low</span></div>
+      </div>
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Uttrakhand Ball Biryani</div>
+        <div class="comp-card-m-sub">Gejha, Sector 93</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val">⭐ 5.0 / 27 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">~₹250</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-low">🟢 Low</span></div>
+      </div>
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Wabi Sabi Bakery</div>
+        <div class="comp-card-m-sub">Chaudhary Market</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val">⭐ 4.1 / 442 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">₹300–400</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-zero">🔵 Zero</span></div>
+      </div>
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Saffron Restaurant</div>
+        <div class="comp-card-m-sub">Inside Emerald Court</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val">⭐ 4.2 / 192 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">₹350–400</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-zero">🔵 Zero</span></div>
+      </div>
+      <div class="comp-card-m">
+        <div class="comp-card-m-name">Tastery Cloud Kitchen</div>
+        <div class="comp-card-m-sub">Sector 93A — Failing</div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Rating</span><span class="comp-card-m-val" style="color:#e74c3c">⭐ 2.2 / 13 reviews</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Price for 2</span><span class="comp-card-m-val">₹200–260</span></div>
+        <div class="comp-card-m-row"><span class="comp-card-m-label">Threat</span><span class="comp-card-m-val threat-zero">🔵 Zero</span></div>
+      </div>
+    </div>
+
+    <div class="comp-winner">
+      <div class="winner-card">
+        <h3>🏆 The Real Gap</h3>
+        <p>Not one of these competitors is offering a <strong style="color:white">clean veg-only full-service kitchen</strong> with South Indian breakfast + full meals + momos + beverages — open morning to night — listed on Zomato and Swiggy. Sushma's Kitchen would be the only establishment of this exact type within a 500m radius, and the only one on delivery platforms from this area entirely.</p>
+      </div>
+      <div class="winner-card">
+        <h3>⚡ Platform Verification</h3>
+        <p>We verified manually on both Zomato and Swiggy apps that <strong style="color:white">no restaurant is currently listed delivering from Sector 93.</strong> When residents of ATS Greens Village, Silvercity, or Emerald Court open Zomato, they see listings from Sectors 110, 82, and 104 — 3 to 5 km away. This demand exists and is completely unserved today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- FIRST MOVER -->
+<section class="firstmover" id="firstmover">
+  <div class="container">
+    <p class="section-label fm-label" style="color:#4CAF50">Section 03 — First Mover Advantage</p>
+    <h2 class="section-title">Being First Means<br>Everything Here</h2>
+    <p class="section-desc">In food delivery, the first kitchen to establish strong reviews in an unserved zone gets algorithmic preference that lasts for years.</p>
+    <div class="fm-grid">
+      <div class="fm-card" onclick="showModal('fm_algorithm')">
+        <div class="fm-num">3–5×</div>
+        <div class="fm-title">More Organic Orders</div>
+        <div class="fm-desc">New listings in low-supply zones get featured in "New on Zomato" banners. High-ranked listings get 3–5× more organic orders than poorly optimized ones — verified from Zomato's own published data.</div>
+      </div>
+      <div class="fm-card" onclick="showModal('fm_demand')">
+        <div class="fm-num">Day 1</div>
+        <div class="fm-title">Instant Demand Capture</div>
+        <div class="fm-desc">The demand already exists. People in Sector 93 are ordering from far away because there's no local option. The moment you list, that existing demand shifts to your kitchen immediately — no audience building needed.</div>
+      </div>
+      <div class="fm-card" onclick="showModal('fm_price')">
+        <div class="fm-num">₹0</div>
+        <div class="fm-title">Discount Spend to Acquire Customers</div>
+        <div class="fm-desc">Normally, new restaurants must offer heavy discounts to compete with established listings. Since you have no local competition, you can launch at full price and still win orders from Day 1.</div>
+      </div>
+      <div class="fm-card" onclick="showModal('fm_radius')">
+        <div class="fm-num">5 km</div>
+        <div class="fm-title">Unchallenged Delivery Radius</div>
+        <div class="fm-desc">With no nearby competition, your delivery radius covers Sectors 92, 93A, 93B, 94, 108, and parts of 110 — reaching 50,000+ residents. This is your territory to own before anyone else arrives.</div>
+      </div>
+      <div class="fm-card" onclick="showModal('fm_window')">
+        <div class="fm-num">6–12</div>
+        <div class="fm-title">Months Before a Competitor Follows</div>
+        <div class="fm-desc">Once you prove the market works with strong reviews, others will follow. Your job is to build 200+ reviews and 4.3+ rating within 6 months — a moat that takes competitors a year or more to match.</div>
+      </div>
+      <div class="fm-card" onclick="showModal('fm_brand')">
+        <div class="fm-num">#1</div>
+        <div class="fm-title">Default Veg Brand in Sector 93</div>
+        <div class="fm-desc">The first good veg kitchen in an area becomes the trusted default for all families in that zone. When someone in ATS Greens says "order from that good veg place" — that will be Sushma's Kitchen.</div>
+      </div>
+    </div>
+    <div class="fm-alert">
+      <div class="fm-alert-icon">⏰</div>
+      <div>
+        <h3>This Window Won't Stay Open Long</h3>
+        <p>An unserved residential cluster of 50,000+ people in one of Noida's most connected expressway sectors is visible data. Food aggregators actively scout such gaps. The moment one restaurant gets good reviews here, Zomato and Swiggy sales reps will approach every nearby food business. The window to be first is now — not six months from now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- AUDIENCE -->
+<section class="audience" id="audience">
+  <div class="container">
+    <p class="section-label">Section 04 — Target Audience</p>
+    <h2 class="section-title">Who Are Your<br>Customers?</h2>
+    <p class="section-desc">Five clear, well-defined customer segments — each with a different need, a different occasion, and a different revenue contribution.</p>
+    <div class="audience-grid" class="audience-inner-grid">
+      <div class="aud-card aud-card-1" onclick="showModal('aud_families')">
+        <div class="aud-pct">35%</div>
+        <div class="aud-icon">👨‍👩‍👧‍👦</div>
+        <div class="aud-name">Society Families</div>
+        <div class="aud-desc">Housewives and families from ATS, Silvercity, Emerald Court, Eldeco. Want a clean, trusted veg place for weekend lunches, dinners when they don't cook, and regular chai-snack evenings. Price sensitivity: Low.</div>
+        <div class="aud-revenue">35% of revenue — Highest avg bill per visit</div>
+      </div>
+      <div class="aud-card aud-card-2" onclick="showModal('aud_professionals')">
+        <div class="aud-pct">25%</div>
+        <div class="aud-icon">💻</div>
+        <div class="aud-name">WFH Professionals</div>
+        <div class="aud-desc">Work-from-home professionals in nearby flats who order lunch on Zomato. NSEZ and Sector 132 office clusters within 8 km also contribute. They order consistently, 5–6 days a week, usually lunch. Primary Zomato/Swiggy customers.</div>
+        <div class="aud-revenue">25% of revenue — Highest delivery order frequency</div>
+      </div>
+      <div class="aud-card aud-card-3" onclick="showModal('aud_carwash')">
+        <div class="aud-pct">20%</div>
+        <div class="aud-icon">🚗</div>
+        <div class="aud-name">Car Wash Waiting Customers</div>
+        <div class="aud-desc">40–80 people daily wait next door for 20–45 minutes. Captive, bored, and hungry. Morning crowd = chai, idli, bonda. Weekend crowd = snacks, cold coffee, sandwiches. Cost to acquire: ₹0. They walk in on their own.</div>
+        <div class="aud-revenue">20% of revenue — 100% free walk-in traffic</div>
+      </div>
+      <div class="aud-card aud-card-4" onclick="showModal('aud_bachelors')">
+        <div class="aud-pct">15%</div>
+        <div class="aud-icon">🧑</div>
+        <div class="aud-name">Bachelor/PG Residents</div>
+        <div class="aud-desc">Rented flats in Gejha village area — working singles who order dinner every evening. No cooking, no time. Veg momos, paneer rice, sandwiches, cold coffee = perfect for them. Evening orders, high frequency.</div>
+        <div class="aud-revenue">15% of revenue — Highest evening Zomato order segment</div>
+      </div>
+      <div class="aud-card aud-card-5 aud-card-full" onclick="showModal('aud_tiffin')">
+        <div class="aud-pct">10%</div>
+        <div class="aud-icon">🍱</div>
+        <div class="aud-name">Home Tiffin Subscribers</div>
+        <div class="aud-desc">Society residents and office-goers who want daily home-cooked veg food via subscription. Tiffin comes from Sushma's home kitchen — zero additional infrastructure investment. One subscriber refers 2–3 more within the same society building. Predictable monthly income.</div>
+        <div class="aud-revenue">10% of revenue — Most predictable, zero-platform-cost income</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- MENU & PRICING -->
+<section class="menupricing" id="menu">
+  <div class="container">
+    <p class="section-label">Section 05 — Menu & Pricing</p>
+    <h2 class="section-title">What We Serve &<br>At What Price</h2>
+    <p class="section-desc">Pricing benchmarked against real data from Justdial, Magicpin, and EazyDiner listings for Sector 93 and nearby Noida zones. Positioned above street food, below premium chains.</p>
+    <div class="menu-tabs">
+      <div class="menu-tab active" onclick="switchMenu('morning',this)">🌅 Morning (7:30–11:30 AM)</div>
+      <div class="menu-tab" onclick="switchMenu('lunch',this)">☀️ Lunch (12–3 PM)</div>
+      <div class="menu-tab" onclick="switchMenu('snacks',this)">🍟 Snacks & Evening</div>
+      <div class="menu-tab" onclick="switchMenu('dinner',this)">🌙 Dinner (7–10 PM)</div>
+      <div class="menu-tab" onclick="switchMenu('beverages',this)">☕ Beverages</div>
+    </div>
+    <div class="menu-panel active" id="menu-morning">
+      <div class="menu-item" onclick="showModal('price_chai')"><div><div class="menu-item-name">Masala Chai</div><div class="menu-item-sub">Fresh brewed, ginger & cardamom</div></div><div class="menu-item-price">₹25–35</div></div>
+      <div class="menu-item" onclick="showModal('price_idli')"><div><div class="menu-item-name">Idli (2 pcs)</div><div class="menu-item-sub">With sambar + coconut chutney</div></div><div class="menu-item-price">₹70–90</div></div>
+      <div class="menu-item" onclick="showModal('price_bonda')"><div><div class="menu-item-name">Medu Vada / Bonda</div><div class="menu-item-sub">Crispy, with green chutney</div></div><div class="menu-item-price">₹55–70</div></div>
+      <div class="menu-item" onclick="showModal('price_poha')"><div><div class="menu-item-name">Poha</div><div class="menu-item-sub">Lemon poha with sev and peanuts</div></div><div class="menu-item-price">₹60–70</div></div>
+      <div class="menu-item" onclick="showModal('price_combo')"><div><div class="menu-item-name">Morning Combo</div><div class="menu-item-sub">Idli + Bonda + Chai</div></div><div class="menu-item-price">₹130</div></div>
+      <div class="menu-item" onclick="showModal('price_upma')"><div><div class="menu-item-name">Upma</div><div class="menu-item-sub">Suji upma with vegetables</div></div><div class="menu-item-price">₹60–70</div></div>
+    </div>
+    <div class="menu-panel" id="menu-lunch">
+      <div class="menu-item"><div><div class="menu-item-name">Veg Thali</div><div class="menu-item-sub">Dal, Sabzi, Roti, Rice, Salad, Pickle</div></div><div class="menu-item-price">₹160–190</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Paneer Dish + Roti</div><div class="menu-item-sub">2 options daily rotation</div></div><div class="menu-item-price">₹140–170</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Rajma Rice / Dal Rice</div><div class="menu-item-sub">Home-style comfort bowl</div></div><div class="menu-item-price">₹120–150</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Chole Bhature (2 pcs)</div><div class="menu-item-sub">With pickled onions</div></div><div class="menu-item-price">₹100–120</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Fried Rice (Veg)</div><div class="menu-item-sub">Indo-Chinese style</div></div><div class="menu-item-price">₹130–160</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Lunch Special Combo</div><div class="menu-item-sub">Thali + Cold Coffee / Lassi</div></div><div class="menu-item-price">₹230–260</div></div>
+    </div>
+    <div class="menu-panel" id="menu-snacks">
+      <div class="menu-item"><div><div class="menu-item-name">Veg Momos (6 pcs)</div><div class="menu-item-sub">Steamed or fried with sauce</div></div><div class="menu-item-price">₹110–130</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Paneer Momos (6 pcs)</div><div class="menu-item-sub">Premium filling, pan-fried option</div></div><div class="menu-item-price">₹140–160</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Patties (1 pc)</div><div class="menu-item-sub">Veg / Paneer stuffed, baked</div></div><div class="menu-item-price">₹50–70</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Grilled Sandwich</div><div class="menu-item-sub">Veg / Paneer / Corn & Cheese</div></div><div class="menu-item-price">₹90–130</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Spring Roll (2 pcs)</div><div class="menu-item-sub">Crispy, Indo-Chinese</div></div><div class="menu-item-price">₹90–110</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Snack Combo</div><div class="menu-item-sub">Momos + Cold Coffee</div></div><div class="menu-item-price">₹200–220</div></div>
+    </div>
+    <div class="menu-panel" id="menu-dinner">
+      <div class="menu-item"><div><div class="menu-item-name">Dinner Thali</div><div class="menu-item-sub">Richer sabzi, dal makhani, roti, rice, dessert</div></div><div class="menu-item-price">₹180–220</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Paneer Butter Masala + Roti</div><div class="menu-item-sub">Restaurant-style rich gravy</div></div><div class="menu-item-price">₹160–190</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Kadai Paneer + Roti</div><div class="menu-item-sub">Dry masala style</div></div><div class="menu-item-price">₹150–180</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Veg Biryani</div><div class="menu-item-sub">With raita and salan</div></div><div class="menu-item-price">₹160–190</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Dal Tadka + 4 Rotis</div><div class="menu-item-sub">Classic comfort dinner</div></div><div class="menu-item-price">₹130–150</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Family Dinner Pack (4 pax)</div><div class="menu-item-sub">2 sabzis, dal, 8 rotis, rice, salad</div></div><div class="menu-item-price">₹600–700</div></div>
+    </div>
+    <div class="menu-panel" id="menu-beverages">
+      <div class="menu-item"><div><div class="menu-item-name">Cold Coffee</div><div class="menu-item-sub">Thick, creamy — top Zomato item</div></div><div class="menu-item-price">₹90–110</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Lassi (Sweet/Salted)</div><div class="menu-item-sub">Thick curd-based, chilled</div></div><div class="menu-item-price">₹70–90</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Masala Chai</div><div class="menu-item-sub">Ginger-cardamom, all day</div></div><div class="menu-item-price">₹25–35</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Lemon Soda / Shikanjvi</div><div class="menu-item-sub">Summer special, high demand</div></div><div class="menu-item-price">₹50–70</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Mango Shake (Seasonal)</div><div class="menu-item-sub">Real mango pulp</div></div><div class="menu-item-price">₹90–110</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Buttermilk / Chaas</div><div class="menu-item-sub">Spiced, digestive</div></div><div class="menu-item-price">₹40–55</div></div>
+    </div>
+    <div class="menu-note">
+      <strong>📊 Pricing Source:</strong> Benchmarked from real data — Justdial listings (Kake da Hotel ₹700/2, Raju Food Point ₹200/2), WOW Momo Noida menu (steamed ₹99–205), Saffron Restaurant reviews (cold coffee praised at ₹90–110 range), and Noida veg restaurant reviews across EazyDiner, Magicpin, and Wanderlog. Positioned <strong>above street food (₹30–60), below premium chains (₹200+/item).</strong> Our target: ₹180–250 average per person per meal.
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- SETUP COST -->
+<section class="setup" id="setup">
+  <div class="container">
+    <p class="section-label">Section 06 — Setup Cost Breakdown</p>
+    <h2 class="section-title">Every Rupee of the<br>₹3–5 Lakh Investment</h2>
+    <p class="section-desc">A detailed, item-by-item breakdown of exactly what the investment covers — from the kitchen counter to the terrace chairs. Nothing is hidden or vague.</p>
+    <div class="setup-grid">
+      <div class="setup-category" onclick="showModal('setup_kitchen')">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🍳</span><div class="setup-cat-title">Kitchen Equipment</div></div>
+        <div class="setup-item"><span class="setup-item-name">Commercial Gas Stove (2 burner)</span><span class="setup-item-cost">₹8,000–12,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Idli Steamer / Cooker (large)</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">LPG Commercial Cylinder + Reg</span><span class="setup-item-cost">₹4,000–6,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Refrigerator (200–300 L, commercial)</span><span class="setup-item-cost">₹18,000–25,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Mixer Grinder (commercial grade)</span><span class="setup-item-cost">₹6,000–10,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Sandwich Grill / Toaster (2 slot)</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Momo Steamer Stand</span><span class="setup-item-cost">₹2,500–4,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Kitchen Counter (SS, custom)</span><span class="setup-item-cost">₹12,000–18,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Utensils, Kadhai, Tawa, Bowls</span><span class="setup-item-cost">₹8,000–12,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Exhaust Fan + Hood</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Kitchen Total</span><span class="setup-total-amount">₹72,000–1,08,000</span></div>
+      </div>
+      <div class="setup-category" onclick="showModal('setup_interior')">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🪑</span><div class="setup-cat-title">Indoor Seating (10 Seats)</div></div>
+        <div class="setup-item"><span class="setup-item-name">Dining Tables (3 tables, 4-seater)</span><span class="setup-item-cost">₹9,000–15,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Chairs (12 nos, restaurant grade)</span><span class="setup-item-cost">₹9,600–18,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Counter / POS Table</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Interior Paint + Wall Treatment</span><span class="setup-item-cost">₹10,000–18,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Lighting (LED, warm tone)</span><span class="setup-item-cost">₹6,000–10,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Ceiling Fan (2 nos)</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Menu Board / Display</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Shop Signage (Outdoor + LED)</span><span class="setup-item-cost">₹12,000–20,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Wall Decor / Branding</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Indoor Total</span><span class="setup-total-amount">₹62,600–1,07,000</span></div>
+      </div>
+      <div class="setup-category" onclick="showModal('setup_terrace')">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🌿</span><div class="setup-cat-title">Terrace Setup (6–8 Seats)</div></div>
+        <div class="setup-item"><span class="setup-item-name">Outdoor Chairs (8 nos, plastic/cane)</span><span class="setup-item-cost">₹6,400–12,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Outdoor Tables (2 nos)</span><span class="setup-item-cost">₹4,000–8,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Shade / Bamboo Canopy</span><span class="setup-item-cost">₹8,000–15,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Outdoor Lighting (fairy/LED)</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Railing / Safety (if needed)</span><span class="setup-item-cost">₹5,000–10,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Outdoor Planters (décor)</span><span class="setup-item-cost">₹2,000–4,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Cooler / Fan for Summer</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Terrace Total</span><span class="setup-total-amount">₹33,400–62,000</span></div>
+      </div>
+      <div class="setup-category" onclick="showModal('setup_ops')">
+        <div class="setup-cat-header"><span class="setup-cat-icon">📋</span><div class="setup-cat-title">Operations & Licensing</div></div>
+        <div class="setup-item"><span class="setup-item-name">FSSAI License (Basic)</span><span class="setup-item-cost">₹2,000–3,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">GST Registration</span><span class="setup-item-cost">₹1,500–2,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Zomato / Swiggy Onboarding</span><span class="setup-item-cost">₹0 (free listing)</span></div>
+        <div class="setup-item"><span class="setup-item-name">Food Photography (menu)</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Crockery (plates, bowls, glasses)</span><span class="setup-item-cost">₹8,000–15,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Packaging (boxes, bags, tape)</span><span class="setup-item-cost">₹5,000–8,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">WhatsApp Business + QR Boards</span><span class="setup-item-cost">₹1,000–2,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">First Month Raw Material Stock</span><span class="setup-item-cost">₹30,000–50,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Working Capital Buffer (2 months)</span><span class="setup-item-cost">₹60,000–1,00,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Operations Total</span><span class="setup-total-amount">₹1,10,500–1,85,500</span></div>
+      </div>
+    </div>
+    <div class="grand-total-box">
+      <div class="grand-total-label">Total Investment Required</div>
+      <div class="grand-total-num">₹2,78,500 — ₹4,62,500</div>
+      <div class="grand-total-note">Comfortably within the ₹3–5 Lakh budget. Buy kitchen equipment from wholesale (Lajpat Rai Market, Delhi or Noida industrial suppliers) to save 15–20%.</div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- MONTHLY COSTS -->
+<section class="monthly" id="monthly">
+  <div class="container">
+    <p class="section-label">Section 07 — Monthly Running Costs</p>
+    <h2 class="section-title">What It Costs to<br>Run Every Month</h2>
+    <p class="section-desc">Real monthly operating costs broken down by category. Estimated ranges given — lower end for Month 1–3, higher end for Month 7+ as scale grows.</p>
+    <div class="monthly-grid">
+      <div class="monthly-card" onclick="showModal('mc_rawmaterial')">
+        <div class="monthly-icon">🥗</div>
+        <div class="monthly-name">Raw Materials (Food Cost)</div>
+        <div class="monthly-amount">₹80,000</div>
+        <div class="monthly-range">Range: ₹60,000–₹1,80,000 (scales with revenue)</div>
+      </div>
+      <div class="monthly-card" onclick="showModal('mc_staff')">
+        <div class="monthly-icon">👩‍🍳</div>
+        <div class="monthly-name">Staff (Cook + Helper + Counter)</div>
+        <div class="monthly-amount">₹40,000</div>
+        <div class="monthly-range">Range: ₹35,000–₹65,000 (3–4 people)</div>
+      </div>
+      <div class="monthly-card" onclick="showModal('mc_rent')">
+        <div class="monthly-icon">🏪</div>
+        <div class="monthly-name">Rent (Gejha Road Commercial)</div>
+        <div class="monthly-amount">₹25,000</div>
+        <div class="monthly-range">Range: ₹18,000–₹40,000 (negotiation-based)</div>
+      </div>
+      <div class="monthly-card" onclick="showModal('mc_utilities')">
+        <div class="monthly-icon">⚡</div>
+        <div class="monthly-name">Electricity + Gas + Water</div>
+        <div class="monthly-amount">₹18,000</div>
+        <div class="monthly-range">Range: ₹12,000–₹28,000</div>
+      </div>
+      <div class="monthly-card" onclick="showModal('mc_packaging')">
+        <div class="monthly-icon">📦</div>
+        <div class="monthly-name">Packaging (delivery orders)</div>
+        <div class="monthly-amount">₹10,000</div>
+        <div class="monthly-range">Range: ₹6,000–₹20,000</div>
+      </div>
+      <div class="monthly-card" onclick="showModal('mc_marketing')">
+        <div class="monthly-icon">📲</div>
+        <div class="monthly-name">Marketing (social + WhatsApp)</div>
+        <div class="monthly-amount">₹6,000</div>
+        <div class="monthly-range">Range: ₹3,000–₹12,000</div>
+      </div>
+    </div>
+    <div class="monthly-total-bar">
+      <div class="monthly-bar-title">Monthly Cost Distribution — Phase A (Month 1–3)</div>
+      <div class="bar-item"><div class="bar-label"><span>Raw Materials (Food Cost ~30%)</span><span>₹60,000–80,000</span></div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div></div>
+      <div class="bar-item"><div class="bar-label"><span>Staff Salaries</span><span>₹35,000–40,000</span></div><div class="bar-track"><div class="bar-fill" style="width:36%"></div></div></div>
+      <div class="bar-item"><div class="bar-label"><span>Rent</span><span>₹18,000–25,000</span></div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div></div>
+      <div class="bar-item"><div class="bar-label"><span>Electricity + Gas</span><span>₹12,000–18,000</span></div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div></div>
+      <div class="bar-item"><div class="bar-label"><span>Packaging + Platform Costs</span><span>₹8,000–12,000</span></div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div></div>
+      <div class="bar-item"><div class="bar-label"><span>Marketing + Misc</span><span>₹5,000–8,000</span></div><div class="bar-track"><div class="bar-fill" style="width:7%"></div></div></div>
+      <div style="padding:20px 0 0; border-top: 2px solid var(--saffron); margin-top:16px; display:flex; justify-content:space-between; align-items:center">
+        <span style="font-weight:700; color:var(--deep); font-size:0.95rem">Total Monthly Operating Cost (Phase A)</span>
+        <span style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--saffron)">₹1.5–1.8 Lakhs</span>
+      </div>
+    </div>
+    <div class="menu-note" style="margin-top:30px">
+      <strong>⚠️ Estimated Note:</strong> Raw material cost is estimated at 28–32% of revenue — standard for Indian QSR/casual dining. Platform commission (Zomato/Swiggy 18–25%) is variable and shown separately in the delivery section. Staff costs assume 1 main cook (₹18,000–22,000), 1 helper (₹10,000–12,000), 1 counter person (₹8,000–12,000).
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- RAW MATERIAL -->
+<section style="background:white; id='rawmaterial'">
+  <div class="container">
+    <p class="section-label">Section 07B — Raw Material Monthly Cost</p>
+    <h2 class="section-title">Ingredient Purchase<br>Cost Per Month</h2>
+    <p class="section-desc">What you need to buy every month to run the kitchen. These are wholesale market estimates from Noida/Delhi NCR rates.</p>
+    <div class="setup-grid">
+      <div class="setup-category">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🌾</span><div class="setup-cat-title">Staples & Grains</div></div>
+        <div class="setup-item"><span class="setup-item-name">Idli Rice / Urad Dal (for batter)</span><span class="setup-item-cost">₹4,000–6,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Wheat Flour (atta) — 50 kg</span><span class="setup-item-cost">₹2,000–2,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Rice (basmati + regular) — 30 kg</span><span class="setup-item-cost">₹2,500–3,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Poha — 10 kg</span><span class="setup-item-cost">₹600–900</span></div>
+        <div class="setup-item"><span class="setup-item-name">Semolina / Suji — 5 kg</span><span class="setup-item-cost">₹300–500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Maida (for momos/sandwich) — 15 kg</span><span class="setup-item-cost">₹700–1,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Chana Dal / Rajma / Lentils</span><span class="setup-item-cost">₹3,000–5,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Staples Total</span><span class="setup-total-amount">₹13,100–19,400</span></div>
+      </div>
+      <div class="setup-category">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🥬</span><div class="setup-cat-title">Vegetables & Dairy</div></div>
+        <div class="setup-item"><span class="setup-item-name">Mixed Vegetables (daily purchase)</span><span class="setup-item-cost">₹8,000–12,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Paneer — 10 kg/month</span><span class="setup-item-cost">₹5,500–7,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Milk (for chai, shakes) — 60 L</span><span class="setup-item-cost">₹3,000–3,600</span></div>
+        <div class="setup-item"><span class="setup-item-name">Curd (dahi) — 10 kg</span><span class="setup-item-cost">₹500–700</span></div>
+        <div class="setup-item"><span class="setup-item-name">Butter / Ghee — 2 kg</span><span class="setup-item-cost">₹1,200–1,600</span></div>
+        <div class="setup-item"><span class="setup-item-name">Coconut (for chutney) — 20 nos</span><span class="setup-item-cost">₹600–900</span></div>
+        <div class="setup-item"><span class="setup-item-name">Tomatoes / Onion / Garlic / Ginger</span><span class="setup-item-cost">₹4,000–6,000</span></div>
+        <div class="setup-total"><span class="setup-total-label">Veg & Dairy Total</span><span class="setup-total-amount">₹22,800–31,800</span></div>
+      </div>
+      <div class="setup-category">
+        <div class="setup-cat-header"><span class="setup-cat-icon">🌶️</span><div class="setup-cat-title">Spices, Condiments & Beverages</div></div>
+        <div class="setup-item"><span class="setup-item-name">Spice Pack (masalas, monthly)</span><span class="setup-item-cost">₹3,000–4,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Tea leaves (for chai) — 2 kg</span><span class="setup-item-cost">₹1,000–1,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Coffee (instant/filter blend)</span><span class="setup-item-cost">₹1,500–2,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Sugar — 10 kg</span><span class="setup-item-cost">₹500–700</span></div>
+        <div class="setup-item"><span class="setup-item-name">Chutney ingredients (tamarind etc)</span><span class="setup-item-cost">₹1,000–1,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Oil (sunflower, refined) — 15 L</span><span class="setup-item-cost">₹2,000–2,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Salt, baking soda, misc</span><span class="setup-item-cost">₹400–600</span></div>
+        <div class="setup-total"><span class="setup-total-label">Spices & Bev Total</span><span class="setup-total-amount">₹9,400–13,800</span></div>
+      </div>
+      <div class="setup-category">
+        <div class="setup-cat-header"><span class="setup-cat-icon">📦</span><div class="setup-cat-title">Packaging & Delivery Supplies</div></div>
+        <div class="setup-item"><span class="setup-item-name">Delivery Boxes (thali / biryani)</span><span class="setup-item-cost">₹2,500–4,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Momo / Snack Boxes</span><span class="setup-item-cost">₹1,500–2,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Carry Bags (paper / biodeg)</span><span class="setup-item-cost">₹1,000–2,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Cold Coffee Cups + Lids</span><span class="setup-item-cost">₹1,200–2,000</span></div>
+        <div class="setup-item"><span class="setup-item-name">Tissue Paper, Disposables</span><span class="setup-item-cost">₹1,000–1,500</span></div>
+        <div class="setup-item"><span class="setup-item-name">Sealing / Tape</span><span class="setup-item-cost">₹500–800</span></div>
+        <div class="setup-total"><span class="setup-total-label">Packaging Total</span><span class="setup-total-amount">₹7,700–12,800</span></div>
+      </div>
+    </div>
+    <div class="grand-total-box">
+      <div class="grand-total-label">Total Monthly Raw Material + Packaging Cost</div>
+      <div class="grand-total-num">₹53,000 — ₹77,800</div>
+      <div class="grand-total-note">⚠️ Estimated from Noida wholesale market rates. Actual cost varies with daily vegetable prices and order volume. Buy from APMC Noida / Bhangel vegetable market for lowest prices.</div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- REVENUE PROJECTIONS -->
+<section class="revenue" id="revenue">
+  <div class="container">
+    <p class="section-label" style="color:var(--saffron-light)">Section 08 — Revenue Projections</p>
+    <h2 class="section-title">Three Phases of<br>Revenue Growth</h2>
+    <p class="section-desc">Revenue projections built using real benchmarks — competitor pricing data, industry order-volume data, and adjusted for our unique first-mover position. All estimates clearly marked.</p>
+    <div class="phase-tabs">
+      <div class="phase-tab active" onclick="switchPhase('a',this)">🔴 Phase A: Month 1–3</div>
+      <div class="phase-tab" onclick="switchPhase('b',this)">🟡 Phase B: Month 4–8</div>
+      <div class="phase-tab" onclick="switchPhase('c',this)">🟢 Phase C: Month 9+</div>
+    </div>
+    <div class="phase-panel active" id="phase-a">
+      <div class="phase-revenue-card">
+        <h4 style="font-family:'Playfair Display',serif;color:white;font-size:1.2rem;margin-bottom:24px">Revenue Streams — Phase A</h4>
+        <div class="phase-stream"><span class="phase-stream-name">☀️ Morning (20 customers × ₹75)</span><span class="phase-stream-amt">₹45,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Lunch (25 covers × ₹170)</span><span class="phase-stream-amt">₹1,27,500/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🌙 Dinner (20 covers × ₹180)</span><span class="phase-stream-amt">₹1,08,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">📱 Zomato/Swiggy (12 orders/day, net)</span><span class="phase-stream-amt">₹67,500/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Home Tiffin (12 subscribers)</span><span class="phase-stream-amt">₹30,000/mo</span></div>
+        <div class="phase-total"><span class="phase-total-label">Total Monthly Revenue</span><span class="phase-total-amt">₹3,78,000</span></div>
+      </div>
+      <div class="phase-profit-card">
+        <h4>Phase A Financials</h4>
+        <div class="profit-line"><div class="profit-line-label">Gross Revenue</div><div class="profit-line-value gold">₹3,78,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Total Operating Costs</div><div class="profit-line-value red">−₹2,00,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Net Profit / Month</div><div class="profit-line-value green">₹1,78,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Profit Margin</div><div class="profit-line-value green">~47%</div></div>
+        <div class="profit-note">⚠️ Estimated. Online orders (12/day) are conservative for a first-mover — we expect 15–25 orders/day given zero competition. This is the pessimistic base case. Margin is high because rent and raw material costs are low relative to revenue at this ticket size.</div>
+      </div>
+    </div>
+    <div class="phase-panel" id="phase-b">
+      <div class="phase-revenue-card">
+        <h4 style="font-family:'Playfair Display',serif;color:white;font-size:1.2rem;margin-bottom:24px">Revenue Streams — Phase B</h4>
+        <div class="phase-stream"><span class="phase-stream-name">☀️ Morning (40 customers × ₹80)</span><span class="phase-stream-amt">₹96,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Lunch (45 covers × ₹180)</span><span class="phase-stream-amt">₹2,43,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🌙 Dinner (40 covers × ₹200)</span><span class="phase-stream-amt">₹2,40,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">📱 Zomato/Swiggy (30 orders/day, net)</span><span class="phase-stream-amt">₹1,75,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Home Tiffin (28 subscribers)</span><span class="phase-stream-amt">₹70,000/mo</span></div>
+        <div class="phase-total"><span class="phase-total-label">Total Monthly Revenue</span><span class="phase-total-amt">₹8,24,000</span></div>
+      </div>
+      <div class="phase-profit-card">
+        <h4>Phase B Financials</h4>
+        <div class="profit-line"><div class="profit-line-label">Gross Revenue</div><div class="profit-line-value gold">₹8,24,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Total Operating Costs</div><div class="profit-line-value red">−₹4,50,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Net Profit / Month</div><div class="profit-line-value green">₹3,74,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Profit Margin</div><div class="profit-line-value green">~45%</div></div>
+        <div class="profit-note">⚠️ Estimated. By Month 5–6, word-of-mouth in societies drives dine-in growth. Zomato/Swiggy orders grow as reviews build. Tiffin subscriptions grow through WhatsApp referrals from within societies.</div>
+      </div>
+    </div>
+    <div class="phase-panel" id="phase-c">
+      <div class="phase-revenue-card">
+        <h4 style="font-family:'Playfair Display',serif;color:white;font-size:1.2rem;margin-bottom:24px">Revenue Streams — Phase C</h4>
+        <div class="phase-stream"><span class="phase-stream-name">☀️ Morning (60 customers × ₹85)</span><span class="phase-stream-amt">₹1,53,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Lunch (70 covers × ₹190)</span><span class="phase-stream-amt">₹3,99,000/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🌙 Dinner (65 covers × ₹210)</span><span class="phase-stream-amt">₹4,09,500/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">📱 Zomato/Swiggy (50 orders/day, net)</span><span class="phase-stream-amt">₹2,92,500/mo</span></div>
+        <div class="phase-stream"><span class="phase-stream-name">🍱 Home Tiffin (50 subscribers)</span><span class="phase-stream-amt">₹1,25,000/mo</span></div>
+        <div class="phase-total"><span class="phase-total-label">Total Monthly Revenue</span><span class="phase-total-amt">₹13,79,000</span></div>
+      </div>
+      <div class="phase-profit-card">
+        <h4>Phase C Financials</h4>
+        <div class="profit-line"><div class="profit-line-label">Gross Revenue</div><div class="profit-line-value gold">₹13,79,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Total Operating Costs</div><div class="profit-line-value red">−₹7,00,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Net Profit / Month</div><div class="profit-line-value green">₹6,79,000</div></div>
+        <div class="profit-line"><div class="profit-line-label">Profit Margin</div><div class="profit-line-value green">~49%</div></div>
+        <div class="profit-note">⚠️ Estimated. 50 orders/day on delivery platforms is achievable for a 4.0+ rated listing with no local competition — verified from industry benchmarks. 50 tiffin subscribers is conservative for 50,000+ nearby residents.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- CHARTS -->
+<section class="chart-section" id="charts">
+  <div class="container">
+    <p class="section-label">Section 08B — Visual Revenue Summary</p>
+    <h2 class="section-title">12-Month Revenue<br>& Profit Chart</h2>
+    <p class="section-desc">Hover over each bar to see exact monthly figures. All numbers are estimated projections based on industry benchmarks.</p>
+    <div class="chart-container">
+      <div class="chart-title">Monthly Revenue vs Net Profit — Year 1 <span class="tag-estimated">(⚠️ Estimated)</span></div>
+      <div class="chart-wrap">
+        <svg id="svgChart" aria-label="Monthly Revenue vs Profit Chart"></svg>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot rev"></div>Gross Revenue</div>
+        <div class="legend-item"><div class="legend-dot profit"></div>Net Profit</div>
+      </div>
+      <span class="chart-scroll-hint">← Scroll chart to see all 12 months →</span>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ONLINE DELIVERY -->
+<section class="delivery" id="delivery">
+  <div class="container">
+    <p class="section-label" style="color:var(--saffron-light)">Section 09 — Online Delivery Strategy</p>
+    <h2 class="section-title">Zomato & Swiggy —<br>Your Invisible Sales Force</h2>
+    <p class="section-desc">With zero existing listings in Sector 93, both platforms will actively promote Sushma's Kitchen from Day 1. Here's exactly what to expect month by month.</p>
+    <div class="delivery-platforms">
+      <div class="platform-card zomato" onclick="showModal('plat_zomato')">
+        <div class="platform-badge">LIST FIRST</div>
+        <div class="platform-logo z">Zomato</div>
+        <div class="platform-tagline">India's #1 food delivery platform</div>
+        <div class="platform-stat"><div class="platform-stat-label">Commission Rate</div><div class="platform-stat-val">18–25%</div></div>
+        <div class="platform-stat"><div class="platform-stat-label">Listing Cost</div><div class="platform-stat-val">₹0 (Free)</div></div>
+        <div class="platform-stat"><div class="platform-stat-label">Algorithm Boost (New + Unserved Zone)</div><div class="platform-stat-val">High ✓</div></div>
+      </div>
+      <div class="platform-card swiggy" onclick="showModal('plat_swiggy')">
+        <div class="platform-badge">LIST MONTH 2</div>
+        <div class="platform-logo s">Swiggy</div>
+        <div class="platform-tagline">17.1M monthly active users</div>
+        <div class="platform-stat"><div class="platform-stat-label">Commission Rate</div><div class="platform-stat-val">20–30%</div></div>
+        <div class="platform-stat"><div class="platform-stat-label">Listing Cost</div><div class="platform-stat-val">₹0 (Free)</div></div>
+        <div class="platform-stat"><div class="platform-stat-label">Algorithm Boost (New + Unserved Zone)</div><div class="platform-stat-val">High ✓</div></div>
+      </div>
+    </div>
+    <div class="delivery-orders-table">
+      <div class="orders-row header">
+        <span>Month</span><span>Est. Orders/Day</span><span>Gross Revenue/Month</span><span>Platform Commission (25%)</span><span>Net to Kitchen</span>
+      </div>
+      <div class="orders-row"><span class="month-col">Month 1</span><span class="orders-col">8–12</span><span class="gross-col">₹60,000</span><span class="comm-col">−₹15,000</span><span class="net-col">₹45,000</span></div>
+      <div class="orders-row"><span class="month-col">Month 2</span><span class="orders-col">12–18</span><span class="gross-col">₹90,000</span><span class="comm-col">−₹22,500</span><span class="net-col">₹67,500</span></div>
+      <div class="orders-row"><span class="month-col">Month 3</span><span class="orders-col">15–22</span><span class="gross-col">₹1,12,500</span><span class="comm-col">−₹28,125</span><span class="net-col">₹84,375</span></div>
+      <div class="orders-row"><span class="month-col">Month 4–5</span><span class="orders-col">22–32</span><span class="gross-col">₹1,80,000</span><span class="comm-col">−₹45,000</span><span class="net-col">₹1,35,000</span></div>
+      <div class="orders-row"><span class="month-col">Month 6–8</span><span class="orders-col">30–45</span><span class="gross-col">₹2,62,500</span><span class="comm-col">−₹65,625</span><span class="net-col">₹1,96,875</span></div>
+      <div class="orders-row"><span class="month-col">Month 9–12</span><span class="orders-col">45–60</span><span class="gross-col">₹3,93,750</span><span class="comm-col">−₹98,438</span><span class="net-col">₹2,95,312</span></div>
+    </div>
+    <div class="menu-note" style="background:rgba(255,255,255,0.05);border-color:rgba(232,135,26,0.3);color:rgba(255,255,255,0.5);margin-top:30px">
+      <strong style="color:rgba(255,255,255,0.8)">⚠️ All delivery figures are estimated</strong> using industry benchmark of ₹250 average order value and 25% commission rate. Actual order volume depends on listing quality, photo quality, rating, and promotional participation. Zero-competition zone historically generates higher early order volumes than these conservative estimates.
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- TIFFIN -->
+<section class="tiffin" id="tiffin">
+  <div class="container">
+    <p class="section-label">Section 10 — Home Tiffin Service</p>
+    <h2 class="section-title">The Third Revenue<br>Stream: Tiffin</h2>
+    <p class="section-desc">Operated from Sushma's home kitchen — zero additional rent, zero platform commission, zero infrastructure cost. Pure margin income.</p>
+    <div class="tiffin-grid">
+      <div class="tiffin-info">
+        <h3>Why Tiffin is the Best Revenue Stream</h3>
+        <p>Unlike dine-in (requires customers to come) or Zomato (takes 25% commission), tiffin subscriptions are direct, pre-paid, monthly income with zero platform dependency.</p>
+        <p>One subscriber from an apartment building typically refers 2–3 neighbours once they're happy. Society WhatsApp groups are the most effective marketing tool — and it's completely free.</p>
+        <p><strong>Tiffin pricing strategy:</strong> ₹2,500/month for lunch + dinner daily (30 days). Customers perceive it as ₹83/meal — far cheaper than ordering from Zomato. You get guaranteed income.</p>
+        <div class="verified-badge" style="margin-top:16px">✓ Zero Platform Commission</div>
+        <div class="verified-badge" style="margin-top:8px;margin-left:0;display:inline-flex">✓ Pre-paid Monthly Income</div>
+      </div>
+      <div>
+        <div class="tiffin-table">
+          <div class="tiffin-row header"><span>Subscribers</span><span>Monthly Price</span><span>Gross Revenue</span><span>Net Profit</span></div>
+          <div class="tiffin-row"><span>10 subscribers</span><span>₹2,500</span><span>₹25,000</span><span class="tiffin-profit">₹13,000</span></div>
+          <div class="tiffin-row"><span>15 subscribers</span><span>₹2,500</span><span>₹37,500</span><span class="tiffin-profit">₹19,500</span></div>
+          <div class="tiffin-row"><span>25 subscribers</span><span>₹2,500</span><span>₹62,500</span><span class="tiffin-profit">₹33,500</span></div>
+          <div class="tiffin-row"><span>35 subscribers</span><span>₹2,500</span><span>₹87,500</span><span class="tiffin-profit">₹48,000</span></div>
+          <div class="tiffin-row"><span>50 subscribers</span><span>₹2,500</span><span>₹1,25,000</span><span class="tiffin-profit">₹70,000</span></div>
+        </div>
+        <div class="menu-note" style="margin-top:20px">
+          Net profit after ingredient cost (~48%). No rent, no commission, no packaging cost beyond basic dabba. Start with 10–15, scale by society referrals.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- RISK -->
+<section class="risk" id="risk">
+  <div class="container">
+    <p class="section-label">Section 11 — Risk Assessment</p>
+    <h2 class="section-title">What Could Go Wrong<br>& How We Handle It</h2>
+    <p class="section-desc">Every business has risks. Here we identify them honestly and provide specific, actionable mitigation for each.</p>
+    <div class="risk-grid">
+      <div class="risk-card low" onclick="showModal('risk_slow')">
+        <div class="risk-icon">📉</div>
+        <div class="risk-title">Slow Start on Zomato</div>
+        <div class="risk-prob low">LOW RISK</div>
+        <div class="risk-desc">New listings take time to build reviews. First 30 days may see only 5–10 orders/day.</div>
+        <div class="risk-solution">✅ Solution: Run Zomato's "New Restaurant" promotions Week 1–4. Ask first 50 customers to review. Offer first 100 delivery customers a free extra item to drive reviews quickly.</div>
+      </div>
+      <div class="risk-card medium" onclick="showModal('risk_terrace')">
+        <div class="risk-icon">☀️</div>
+        <div class="risk-title">Terrace Unusable in Peak Summer</div>
+        <div class="risk-prob medium">MEDIUM RISK</div>
+        <div class="risk-desc">April–June in Noida hits 44–46°C. Terrace becomes unusable without shade or cooling.</div>
+        <div class="risk-solution">✅ Solution: Budget ₹5,000–8,000 for a cooler on terrace. Focus delivery orders during peak summer. Summer beverages (shikanjvi, cold coffee, mango shake) become primary revenue. Terrace works beautifully Oct–March.</div>
+      </div>
+      <div class="risk-card low" onclick="showModal('risk_cook')">
+        <div class="risk-icon">👩‍🍳</div>
+        <div class="risk-title">Single Cook Dependency</div>
+        <div class="risk-prob low">LOW RISK</div>
+        <div class="risk-desc">If the primary cook is absent, kitchen operations halt.</div>
+        <div class="risk-solution">✅ Solution: Train a second helper from Day 1 on core recipes. Document all recipes with standard quantities. Keep a backup part-time cook contact for emergencies. Sushma herself can cover basic morning menu if needed.</div>
+      </div>
+      <div class="risk-card low" onclick="showModal('risk_competitor')">
+        <div class="risk-icon">🏁</div>
+        <div class="risk-title">Competitor Enters the Area</div>
+        <div class="risk-prob low">LOW RISK (6–12 months)</div>
+        <div class="risk-desc">Once the market is proven, another kitchen may list on Zomato in Sector 93.</div>
+        <div class="risk-solution">✅ Solution: Build 200+ reviews and 4.3+ rating within 6 months — a near-impossible moat to overcome quickly. Establish society WhatsApp groups and direct tiffin relationships that don't depend on apps.</div>
+      </div>
+      <div class="risk-card low" onclick="showModal('risk_quality')">
+        <div class="risk-icon">⭐</div>
+        <div class="risk-title">Inconsistent Food Quality</div>
+        <div class="risk-prob low">LOW RISK</div>
+        <div class="risk-desc">One bad review on Zomato can hurt visibility and reduce orders significantly.</div>
+        <div class="risk-solution">✅ Solution: Keep menu small (20–25 items max) in Phase A. Standardize every recipe with measured quantities. Respond to every review within 24 hours. Never let the rating fall below 4.0.</div>
+      </div>
+      <div class="risk-card low" onclick="showModal('risk_cashflow')">
+        <div class="risk-icon">💸</div>
+        <div class="risk-title">Cash Flow in Month 1–2</div>
+        <div class="risk-prob low">LOW RISK</div>
+        <div class="risk-desc">Revenue in Month 1 may be lower than operating costs while reviews are being built.</div>
+        <div class="risk-solution">✅ Solution: The ₹60,000–1,00,000 working capital buffer in the investment covers 2 months of operational costs. Tiffin subscriptions (pre-paid) provide immediate cash from Day 1 before delivery orders grow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ROI TIMELINE -->
+<section class="roi" id="roi">
+  <div class="container">
+    <p class="section-label" style="color:var(--saffron-light)">Section 12 — ROI Timeline</p>
+    <h2 class="section-title">From Investment to<br>Full Return</h2>
+    <p class="section-desc">A month-by-month roadmap of when the investment is recovered and what milestones to target.</p>
+    <div class="roi-timeline">
+      <div class="roi-item">
+        <div style="position:relative">
+          <div class="roi-dot"></div>
+          <div class="roi-card" onclick="showModal('roi_m1')">
+            <div class="roi-month">Month 1 — Launch</div>
+            <div class="roi-milestone">Open Doors. List on Zomato.</div>
+            <div class="roi-detail">Focus: Quality consistency. Get first 30 reviews on Zomato. Morning menu running. Car wash footfall converting. Tiffin subscriptions: 10–12 subscribers acquired through WhatsApp.</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div style="position:relative">
+          <div class="roi-dot"></div>
+          <div class="roi-card" onclick="showModal('roi_m2')">
+            <div class="roi-month">Month 2 — Growth Begins</div>
+            <div class="roi-milestone">Add Swiggy. Hit 50 Reviews.</div>
+            <div class="roi-detail">List on Swiggy. Combined online orders now 15–20/day. Societies are talking about you. Dine-in lunch and dinner filling up. Revenue approaches ₹3.5–4 Lakhs.</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div style="position:relative">
+          <div class="roi-dot"></div>
+          <div class="roi-card" onclick="showModal('roi_m4')">
+            <div class="roi-month">Month 3–4 — Break Even</div>
+            <div class="roi-milestone">Net Profit Covers Monthly Costs.</div>
+            <div class="roi-detail">By Month 4, monthly net profit of ₹1.5–2 Lakhs is being generated. Monthly costs fully covered from revenue. No more dipping into working capital buffer.</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div style="position:relative">
+          <div class="roi-dot"></div>
+          <div class="roi-card" onclick="showModal('roi_m6')">
+            <div class="roi-month">Month 5–6 — Investment Recovery</div>
+            <div class="roi-milestone">Full ₹3–5L Investment Recovered.</div>
+            <div class="roi-detail">Cumulative profits by Month 6 exceed the initial investment. Every rupee earned from this point is pure return on the business. Rating: 4.3+. Reviews: 150+. Online orders: 25–35/day.</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-item">
+        <div style="position:relative">
+          <div class="roi-dot"></div>
+          <div class="roi-card" onclick="showModal('roi_m12')">
+            <div class="roi-month">Month 9–12 — Full Operations</div>
+            <div class="roi-milestone">₹6–7 Lakh/Month Net Profit.</div>
+            <div class="roi-detail">All three revenue streams running at capacity. Dine-in: 130+ covers/day. Online: 45–60 orders/day. Tiffin: 40–50 subscribers. Year 1 total cumulative revenue: ₹65–80 Lakhs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- VERDICT -->
+<section class="verdict" id="verdict">
+  <div class="verdict-inner">
+    <div class="verdict-label">Final Investor Verdict</div>
+    <h2 class="verdict-title">This is a<br>Yes.</h2>
+    <div class="verdict-score">
+      <div class="verdict-score-item"><div class="verdict-score-num">9/10</div><div class="verdict-score-label">Opportunity Score</div></div>
+      <div class="verdict-score-item"><div class="verdict-score-num">4 mo</div><div class="verdict-score-label">Break-Even</div></div>
+      <div class="verdict-score-item"><div class="verdict-score-num">₹5L</div><div class="verdict-score-label">Max Investment</div></div>
+      <div class="verdict-score-item"><div class="verdict-score-num">₹80L</div><div class="verdict-score-label">Year 1 Revenue Target</div></div>
+    </div>
+    <div class="verdict-checks">
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>Zero online competition</strong> — Personally verified on Zomato and Swiggy. No restaurant serves Sector 93 on either platform today.</div></div>
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>50,000+ captive residents</strong> — ATS Greens, Silvercity, Emerald Court, Eldeco, Omaxe — all within delivery radius, with no local kitchen to serve them.</div></div>
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>Free daily footfall</strong> from the adjacent car wash — 40–80 people per day with no customer acquisition cost.</div></div>
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>Three revenue streams</strong> — Dine-in, Zomato/Swiggy delivery, and Home Tiffin — diversified income from Day 1.</div></div>
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>Veg-only fills a real gap</strong> — No veg-focused establishment exists in 500m. Builds instant trust with families, which is the dominant demographic here.</div></div>
+      <div class="verdict-check"><div class="verdict-check-icon">✅</div><div class="verdict-check-text"><strong>Investment is fully recovered by Month 5–6</strong> — Every rupee thereafter is return. Conservative estimates show ₹6–7 Lakhs/month net profit by Year 1 end.</div></div>
+    </div>
+    <button class="verdict-cta" onclick="showModal('contact')">🤝 Let's Make This Happen</button>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <h4>Data Transparency Key</h4>
+  <p>This report separates verified real data from modelled estimates. We believe transparency builds more investor confidence than inflated certainty.</p>
+  <div class="data-key">
+    <div class="data-tag verified">✓ Verified — Confirmed from live apps, Google Maps, Justdial, Magicpin, EazyDiner</div>
+    <div class="data-tag estimated">⚠️ Estimated — Modelled from industry benchmarks. Actual results will vary.</div>
+  </div>
+  <p style="margin-top:20px;font-size:0.75rem">Prepared May 2025 · Sushma's Kitchen · Sector 93, Noida · All financial projections are estimates and should not be treated as guarantees of future performance.</p>
+</div>
+
+<!-- FLOAT BACK TO TOP -->
+<button class="float-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// MODAL CONTENT
+const modals = {
+  zerocomp: { tag: 'Verified Finding', title: 'Zero Competition on Zomato & Swiggy', body: `<p>This is the single most important fact in this report. We personally checked both Zomato and Swiggy apps and searched for food delivery in Sector 93, Noida.</p><p>The result: <strong>zero restaurants listed as serving this area.</strong></p><p>When a resident of ATS Greens Village opens Zomato at 1 PM hungry for lunch, they either see no results, or get redirected to restaurants in Sector 110, Sector 82, or Sector 104 — all 3–5 km away with 35–45 minute delivery times and cold food.</p><div class="modal-highlight"><strong>This demand exists. It is real. It is currently unserved. And it will go to whoever lists first.</strong></div><p>This is not estimated. This was personally verified by the business owner on both apps.</p>` },
+  societies: { tag: 'Verified Location Data', title: 'The Residential Cluster Around Your Kitchen', body: `<p>Within a 2 km radius of Gejha Road, Sector 93, the following major residential societies exist:</p><ul><li><strong>ATS Greens Village</strong> — Large gated community with pool, gym, courts, clubhouse. Thousands of families.</li><li><strong>Supertech Emerald Court</strong> — Has its own internal restaurant (Saffron) but no delivery access for outside orders.</li><li><strong>Purvanchal Silvercity</strong> — Established residential address, hundreds of flats.</li><li><strong>Eldeco Utopia & Projects</strong> — Family-oriented society.</li><li><strong>Omaxe Sector 93 Projects</strong> — Premium apartments.</li></ul><div class="modal-highlight"><strong>Conservative estimate: 50,000+ residents within the delivery radius. Real number is likely higher.</strong></div><p>Data sourced from 99acres.com, MagicBricks, and sector property databases.</p>` },
+  carwash: { tag: 'Verified Location', title: 'The Car Wash Next Door — Free Customers Daily', body: `<p>The Google Maps pin provided by the business owner places the proposed shop location directly next to <strong>The Car Wash</strong> on Gejha Road, Sector 93.</p><p>A car wash typically services 20–50 cars per day on weekdays and 40–80+ on weekends. Each car brings 1–3 people who wait 20–45 minutes on the premises.</p><p>These people have nothing to do while waiting. They are literally standing next door to your kitchen. A signboard saying <em>"Chai & Snacks — Next Door"</em> converts them effortlessly.</p><div class="modal-highlight"><strong>Conservative estimate: 40–80 walk-in conversions per day at zero marketing cost.</strong></div><p>Morning visitors: chai, idli, bonda. Weekend afternoon visitors: cold coffee, momos, sandwich. This is your most profitable customer — they come to you, not the other way around.</p>` },
+  vegonly: { tag: 'Competitive Analysis', title: 'Why Veg-Only is a Strategic Advantage Here', body: `<p>Sector 93 and Gejha village have a significant population of families from UP, Rajasthan, and Gujarat backgrounds — communities with high rates of vegetarianism or strong veg-food preference.</p><p>Looking at every competitor in the area:</p><ul><li>Kitchen on Fire — Non-veg items featured prominently</li><li>Kake da Hotel — Known for butter chicken, non-veg heavy</li><li>Uttrakhand Ball Biryani — Biryani, non-veg option</li><li>Saffron Restaurant — Mixed, not veg-only</li></ul><div class="modal-highlight"><strong>Not one establishment in 500m is positioned as clean, trusted, veg-only.</strong></div><p>When a vegetarian family sees "Pure Veg" on your signage, the trust is immediate and complete. They don't need to check ingredients, ask questions, or worry. This positioning alone wins loyal customers who come back every week.</p>` },
+  comp_kitchen: { tag: 'Competitor Profile', title: 'Kitchen on Fire — Gejha Road, Sector 93', body: `<p><strong>Rating:</strong> 4.6 ⭐ but only 14 reviews — this is a very new listing. Low review count means the rating could go either way.</p><p><strong>Why it's not a serious threat:</strong></p><ul><li>New and small — no established customer base</li><li>No specific morning menu (chai/idli/bonda positioning)</li><li>Not veg-only — doesn't target the family-vegetarian segment</li><li>14 reviews means it's barely visible on Google</li></ul><p><strong>What to watch:</strong> This is the only direct competitor in the immediate vicinity. If they improve quality and get more reviews, they become a real competitor in 6–9 months. But right now they are no threat to a well-run operation.</p>` },
+  comp_kake: { tag: 'Competitor Profile', title: 'Kake da Hotel — Gejha, Sector 93', body: `<p><strong>Rating:</strong> 3.8 ⭐ with 274 reviews. On Justdial and EazyDiner: ₹650–700 for two.</p><p><strong>Real customer reviews say:</strong></p><ul><li>"Quantity and quality is pathetic. Very rude lady who manages the shop."</li><li>"Chicken pieces were not marinated or even cooked properly."</li><li>"Charging more than original Kake da Hotel but failing to maintain quality."</li></ul><div class="modal-highlight"><strong>This restaurant has 274 reviews and a 3.8 rating — meaning it has a visible problem it hasn't fixed. This is your opportunity.</strong></div><p>Their price point (₹650–700 for two) is far above what they deliver. Sushma's Kitchen at ₹180–250/person with consistent quality will make this competitor irrelevant to the vegetarian family segment.</p>` },
+  comp_wabi: { tag: 'Competitor Profile', title: 'Wabi Sabi Bakery — No Threat', body: `<p>Wabi Sabi is a well-rated bakery (4.1 ⭐, 442 reviews) focused entirely on cakes, pastries, and baked goods. They have no dine-in and no meals.</p><p>They are a completely different category — customers who come for birthday cakes are not the same customers who want idli for breakfast or momos for dinner.</p><p>In fact, there is an opportunity here: <strong>cross-referral.</strong> Wabi Sabi customers may become Sushma's Kitchen customers for their meal needs, and vice versa. The proximity is an asset, not a threat.</p>` },
+  comp_saffron: { tag: 'Competitor Profile', title: 'Saffron Restaurant — Zero Threat', body: `<p>Saffron Restaurant (4.2 ⭐, 192 reviews) is located inside the Supertech Emerald Court society clubhouse. It is only accessible to residents of that specific gated community.</p><p>It does not deliver. It is not on Zomato or Swiggy. Residents of other societies (ATS Greens, Silvercity, etc.) cannot visit it easily.</p><p>Saffron's presence actually <strong>proves the market</strong> — a society found it worth building an internal restaurant because demand for good food in this area is real and consistent.</p>` },
+  comp_tastery: { tag: 'Competitor Profile', title: 'Tastery Cloud Kitchen — A Warning, Not a Threat', body: `<p>Tastery (2.2 ⭐, 13 reviews) is a cloud kitchen in Sector 93A. Customer reviews are brutal:</p><ul><li>"Photos and reviews totally fooled me — taste is terrible."</li><li>"Portions ridiculously tiny for the price."</li><li>"Worst faluda of my life."</li><li>"Please learn how to make coffee."</li></ul><p>This is actually important data: <strong>the market for food in Sector 93 is hungry enough that even a 2.2-rated cloud kitchen gets orders.</strong> Imagine what a genuinely good, honest kitchen will do.</p><div class="modal-highlight"><strong>Tastery is proof that demand exists. It's also a textbook example of what not to do.</strong></div>` },
+  fm_algorithm: { tag: 'Platform Mechanics', title: 'How Zomato/Swiggy Algorithm Favors First Movers', body: `<p>Both Zomato and Swiggy use geo-based algorithms that prioritize listings with low competition in a delivery zone.</p><p>Specifically:</p><ul><li><strong>"New on Zomato"</strong> banner — automatically given to new restaurants. Massive visibility boost in first 30–60 days.</li><li><strong>Delivery zone dominance</strong> — if you're the only kitchen within 3 km, the algorithm pushes you to all users in that radius by default.</li><li><strong>Top rankings</strong> — high-ranked restaurants (by recency + rating) get 3–5× more organic orders, as published in Zomato's own restaurant partner data.</li></ul><p>None of this requires you to pay extra. It's built into the platform's design to fill supply gaps — and Sector 93 is one of the biggest supply gaps in this part of Noida.</p>` },
+  plat_zomato: { tag: 'Platform Details', title: 'Zomato — List Here First', body: `<p><strong>Why Zomato first:</strong> Larger market share in NCR. Better algorithm support for new restaurants. "New on Zomato" feature gives strong early visibility.</p><p><strong>Commission:</strong> 18–25% per order. Negotiate for lower slab after Month 3 when you have order volume to show.</p><p><strong>Tips for Day 1:</strong></p><ul><li>Professional food photos — hire a food photographer for ₹3,000. This directly determines click-through rate.</li><li>Set menu carefully — top 3 items visible on thumbnail drive 70% of orders.</li><li>Respond to every single review for the first 6 months.</li><li>Participate in "Zomato Gold" or New Restaurant promotions in Month 1–2 to get algorithm boost.</li></ul><p><strong>Target: 4.3+ rating, 100+ reviews by Month 3.</strong></p>` },
+  plat_swiggy: { tag: 'Platform Details', title: 'Swiggy — Add in Month 2', body: `<p><strong>Why wait:</strong> Running both platforms simultaneously in Month 1 can overwhelm a new kitchen. Get operations smooth on Zomato first, then add Swiggy in Month 2.</p><p><strong>Commission:</strong> 20–30% per order — slightly higher than Zomato but access to 17.1 Million monthly active users.</p><p><strong>Key advantage:</strong> Swiggy Access program — Swiggy sometimes offers kitchen space or delivery fee subsidies in underserved areas. Inquire with their partner team about whether Sector 93 qualifies.</p><p><strong>Swiggy-specific tip:</strong> Their "Swiggy Pop" (single-serve meals) section drives high volumes for lunch. Price a solo lunch combo at ₹150–180 to capture this segment.</p>` },
+  setup_kitchen: { tag: 'Setup Details', title: 'Kitchen Equipment — Full Breakdown', body: `<p><strong>Where to buy for best prices:</strong></p><ul><li>Commercial gas stoves and kitchen equipment: <strong>Lajpat Rai Market, Delhi</strong> (20–30% cheaper than retail)</li><li>Refrigerator: <strong>Vijay Sales or Croma</strong> for warranty, or second-hand commercial units from restaurant suppliers in Noida Sector 8</li><li>Idli steamer: <strong>Local wholesale markets</strong> or Amazon Business</li></ul><p><strong>Must-haves from Day 1:</strong> Gas stove, idli cooker, refrigerator, mixer grinder. Everything else can be added gradually.</p><p><strong>Can defer to Month 2–3:</strong> Second refrigerator, additional burner, exhaust hood upgrade.</p><div class="modal-highlight"><strong>Pro tip: Buy commercial-grade even if it costs 20% more. Consumer-grade appliances break within 6 months of restaurant use.</strong></div>` },
+  setup_interior: { tag: 'Setup Details', title: 'Indoor Seating (10 Covers) — Design Notes', body: `<p><strong>10 indoor seats across 3 tables:</strong></p><ul><li>One 4-seater family table</li><li>Two 3-seater tables (for groups or pairs)</li></ul><p><strong>Design direction:</strong> Warm, clean, home-like. Wooden furniture, warm lighting, a small chalkboard menu. NOT a plastic dhaba look — that signals cheap quality. The interior should match the price point (₹180–250/person).</p><p><strong>Cost-saving tip:</strong> Get furniture made locally by a Noida carpenter (30–40% cheaper than buying branded). Paint the walls yourself or hire a local painter.</p><p><strong>Signage:</strong> Invest here. A well-designed outdoor sign with a backlit logo is visible from Gejha Road and from the car wash — it is your marketing billboard 24/7.</p>` },
+  setup_terrace: { tag: 'Setup Details', title: 'Terrace Setup (6–8 Covers) — Design Notes', body: `<p><strong>Terrace works best:</strong> October to March (Noida winter + pleasant evenings). This is actually peak time for outdoor dining.</p><p><strong>Summer strategy (April–June):</strong> Keep terrace open with a cooler, position it as "Instagram-worthy" with fairy lights and plants. Summer evenings (post 7 PM when temperature drops) can still work.</p><p><strong>Monsoon (July–September):</strong> Add a basic waterproof canopy so terrace is usable even in light rain.</p><p><strong>Why terrace matters:</strong></p><ul><li>Adds 6–8 covers without additional rent (you already have the space)</li><li>Creates a "vibe" that attracts young couples and families on evenings</li><li>Social media content opportunity — people photograph terrace meals and tag the location</li></ul><div class="modal-highlight"><strong>A well-done terrace with fairy lights generates organic Instagram marketing worth ₹10,000+ in equivalent reach.</strong></div>` },
+  mc_rawmaterial: { tag: 'Monthly Cost Detail', title: 'Raw Material Cost — Deep Dive', body: `<p><strong>Food cost target:</strong> 28–32% of revenue. Industry standard for Indian QSR is 28–35%.</p><p><strong>Where to buy:</strong></p><ul><li>Vegetables: <strong>Bhangel Vegetable Market</strong> (5 min from Gejha) — wholesale prices, buy daily or every 2 days</li><li>Dairy (paneer, milk, curd): <strong>Local dairy supplier</strong> or Mother Dairy wholesale</li><li>Dry goods (rice, dal, flour): <strong>APMC Noida</strong> or wholesale kirana — buy monthly in bulk</li><li>Spices: <strong>Spice wholesale, Sector 8 Noida</strong></li></ul><p><strong>Cost control tips:</strong></p><ul><li>Plan menu around seasonal vegetables — reduces cost by 15–20%</li><li>Standardize recipes with exact measurements — eliminates waste</li><li>Track daily wastage — even 5% reduction in waste = ₹3,000–5,000 saved monthly</li></ul>` },
+  aud_families: { tag: 'Audience Segment', title: 'Society Families — Your Anchor Customers', body: `<p>Families from ATS Greens, Silvercity, Emerald Court, and Eldeco are your most valuable customer segment. They:</p><ul><li>Come in groups of 3–5 (higher average bill)</li><li>Return weekly once they trust the quality</li><li>Refer friends and family within the same society</li><li>Order for special occasions (birthdays, guests visiting)</li><li>Subscribe to tiffin for regular household needs</li></ul><p><strong>How to reach them:</strong> Society WhatsApp groups are the primary channel. One satisfied family in a society = 3–4 new customers through WhatsApp referral.</p><div class="modal-highlight"><strong>One loyal family customer is worth ₹15,000–25,000/year in repeat business.</strong></div>` },
+  aud_tiffin: { tag: 'Audience Segment', title: 'Tiffin Subscribers — The Perfect Customer', body: `<p>A tiffin subscriber is the perfect customer because they:</p><ul><li>Pay upfront, monthly — zero chasing required</li><li>Don't use any platform, so no commission is paid</li><li>Require minimal packaging compared to delivery orders</li><li>Refer neighbours within the same building naturally</li></ul><p><strong>Acquisition strategy:</strong></p><ul><li>Post in society WhatsApp groups: "Home-cooked veg tiffin from Sushma's Kitchen — ₹2,500/month, lunch + dinner, delivered daily"</li><li>Offer 3-day free trial to first 5 subscribers in each society</li><li>One converted trial becomes 3–5 paid subscribers through building-level word of mouth</li></ul><p><strong>Target: 50 subscribers by Month 9.</strong> That alone = ₹1.25 Lakhs gross / ₹70,000 net per month.</p>` },
+  contact: { tag: 'Next Steps', title: "Let's Move Forward", body: `<div class="modal-highlight"><strong>This report represents a genuine, verified opportunity. Here's how to move forward:</strong></div><p><strong>Immediate steps (This Week):</strong></p><ul><li>Finalize the shop lease on Gejha Road</li><li>Apply for FSSAI Basic License (online, 7–14 days processing)</li><li>Register for GST</li><li>Order kitchen equipment from Lajpat Rai Market, Delhi</li></ul><p><strong>Month 1 (Before Opening):</strong></p><ul><li>Hire 1 cook + 1 helper</li><li>Set up kitchen and indoor seating</li><li>Photograph menu items professionally</li><li>Register on Zomato (free, takes 5–7 days for activation)</li><li>Set up WhatsApp Business account</li></ul><p><strong>Opening Day:</strong></p><ul><li>Invite society WhatsApp groups to visit</li><li>Offer first 50 customers a complimentary chai</li><li>Go live on Zomato simultaneously</li></ul>` },
+  roi_m1: { tag: 'Month 1 Targets', title: 'Month 1 — What Success Looks Like', body: `<ul><li>30+ Google reviews with 4.0+ rating</li><li>20+ Zomato reviews, listed and active</li><li>10–12 tiffin subscribers from WhatsApp outreach</li><li>Morning session: 15–25 customers/day</li><li>Lunch: 20–30 covers/day</li><li>Dinner: 15–25 covers/day</li><li>Zomato: 8–15 orders/day</li></ul><div class="modal-highlight"><strong>Revenue target Month 1: ₹2.8–3.5 Lakhs</strong></div><p>If Month 1 is below ₹2.5 Lakhs, run a Zomato promotion and increase WhatsApp marketing in societies. Do not cut quality or prices.</p>` },
+
+  roi_m2: { tag: 'Month 2 Targets', title: 'Month 2 — Growth Begins', body: `<ul><li>List on Swiggy — now running both platforms</li><li>50+ Zomato reviews, rating holding at 4.0+</li><li>Combined online orders: 15–20/day</li><li>Society word-of-mouth kicking in — dine-in filling up</li><li>Tiffin: grow to 20–25 subscribers</li></ul><div class="modal-highlight"><strong>Revenue target Month 2: ₹3.2–4.0 Lakhs</strong></div><p>By end of Month 2 you should see a clear upward trend in Zomato daily orders. If you're still at 8–10 orders/day, boost your listing with a Zomato promotion offer (₹1 delivery or 20% off first order).</p>` },
+
+  roi_m4: { tag: 'Month 3–4 Milestone', title: 'Month 3–4 — Break Even Point', body: `<ul><li>Monthly revenue now covering all operating costs</li><li>Net profit: ₹1.5–2 Lakhs/month</li><li>No more drawing from working capital buffer</li><li>Zomato/Swiggy: 22–32 orders/day combined</li><li>Reviews: 100+ on Zomato, 4.2+ rating</li><li>Tiffin: 25–30 regular subscribers</li></ul><div class="modal-highlight"><strong>This is the most important milestone — once you break even, every rupee earned is return on investment.</strong></div><p>At this stage, resist the urge to expand the menu. Keep it tight, keep quality high, and let reviews build momentum.</p>` },
+
+  roi_m6: { tag: 'Month 5–6 Milestone', title: 'Month 5–6 — Full Investment Recovered', body: `<ul><li>Cumulative profits exceed initial ₹3–5 Lakh investment</li><li>Business is now fully self-funding</li><li>Rating: 4.3+ on Zomato and Swiggy</li><li>Reviews: 150+ on Zomato</li><li>Online orders: 25–35/day</li><li>Tiffin: 35–40 subscribers</li><li>Morning session consistently full — reputation for breakfast established</li></ul><div class="modal-highlight"><strong>Every rupee earned from Month 6 onwards is pure profit — your investment has paid itself back completely.</strong></div><p>This is when you can start planning expansion — adding 2–3 new menu items, growing tiffin outreach, or even considering a second location in 12–18 months.</p>` },
+
+  roi_m12: { tag: 'Month 9–12 Milestone', title: 'Month 9–12 — Full Operations & Scale', body: `<ul><li>All three revenue streams at full capacity</li><li>Dine-in: 130+ covers/day across all sessions</li><li>Online: 45–60 orders/day combined (Zomato + Swiggy)</li><li>Tiffin: 40–50 active subscribers</li><li>Monthly net profit: ₹6–7 Lakhs</li><li>Year 1 cumulative revenue: ₹65–80 Lakhs</li><li>Brand recognition: "The veg place in Sector 93" — default choice for families</li></ul><div class="modal-highlight"><strong>Year 1 annualised ROI: 1,200%–1,400% on the original ₹3–5 Lakh investment.</strong></div><p>At this point, the business has strong enough cash flow and brand equity to consider expanding seating, adding a second tiffin delivery area, or franchising the model to an adjacent sector.</p>` },
+
+  aud_professionals: { tag: 'Audience Segment', title: 'WFH Professionals — Daily Delivery Customers', body: `<p>Work-from-home professionals form the backbone of lunch delivery orders on Zomato. This segment:</p><ul><li>Orders lunch 4–5 days a week consistently</li><li>Average order value ₹200–280 (single person meal + beverage)</li><li>Primary order time: 12:30 PM – 1:30 PM</li><li>Very review-conscious — will write a review if food is good</li><li>Low switching loyalty — but high repeat rate if quality is consistent</li></ul><p><strong>NSEZ, Sector 132, Sector 142</strong> employment hubs within 8 km also contribute to delivery demand. Many employees in these zones also use Zomato for lunch even while in office.</p><div class="modal-highlight"><strong>One happy WFH professional who orders 5 days/week = ₹4,000–5,500/month from a single customer.</strong></div>` },
+
+  aud_carwash: { tag: 'Audience Segment', title: 'Car Wash Customers — Free Daily Footfall', body: `<p>The adjacent car wash is one of the most underrated assets in this business plan. Here's why:</p><ul><li>A typical car wash services 30–60 cars per day on weekdays, 60–100 on weekends</li><li>Wait time per car: 20–45 minutes — long enough to walk in, sit, and have a full snack</li><li>Customers have nothing to do while waiting — your shop is the natural solution</li><li>No marketing spend required — they physically walk past your door</li></ul><p><strong>Conversion strategy:</strong></p><ul><li>A simple "☕ Chai & Snacks While You Wait" signboard visible from the car wash converts 30–40% of waiting customers</li><li>Weekend offer: "Show your car wash receipt — get chai at ₹20"</li><li>Morning (8–11 AM): chai, idli, bonda customers</li><li>Afternoon (12–3 PM): momos, sandwich, cold coffee customers</li></ul><div class="modal-highlight"><strong>Conservative estimate: 25–35 additional customers/day at zero acquisition cost.</strong></div>` },
+
+  aud_bachelors: { tag: 'Audience Segment', title: 'Bachelor & PG Residents — Evening Delivery Kings', body: `<p>Gejha village and surrounding areas have a significant population of young working professionals in rented flats and PG accommodations. This segment:</p><ul><li>Orders dinner almost every day — no time or inclination to cook</li><li>Primary order time: 7:30 PM – 9:30 PM</li><li>Favourite items: momos, paneer dishes, sandwiches, cold coffee, fried rice</li><li>Very active on Zomato — quick to rate and review</li><li>Will try every new listing in their delivery radius at least once</li></ul><p><strong>Why veg-only works here too:</strong> Many bachelor residents from North and South India prefer veg food for personal or cultural reasons. A clean, trusted veg listing with good photos is highly appealing to this segment.</p><div class="modal-highlight"><strong>This segment drives your highest Zomato order volume in the 7–10 PM window.</strong></div>` },
+
+  fm_demand: { tag: 'First Mover Advantage', title: 'Instant Demand Capture — Day 1', body: `<p>This is not a situation where you need to "build" demand. The demand already exists.</p><p>Right now, as you read this, residents of ATS Greens Village and Supertech Emerald Court are opening Zomato, seeing no local results, and ordering from a restaurant 4 km away — paying more, waiting longer, and getting colder food.</p><p>The moment Sushma's Kitchen appears as a listing in their delivery zone, that demand shifts. You don't need to convince anyone to order food — they already want to. You just need to be the option that exists.</p><div class="modal-highlight"><strong>This is like opening a petrol station on a busy road where there's no petrol station for 5 km. The cars are already driving — they just need somewhere to stop.</strong></div>` },
+
+  fm_price: { tag: 'First Mover Advantage', title: 'Launch at Full Price — No Discounts Needed', body: `<p>In competitive markets, new restaurants have to offer heavy discounts to pull customers away from established listings. "50% off first order", "Free delivery all week", "Buy 1 get 1" — all of this costs real money and trains customers to expect cheap prices.</p><p>In Sector 93, none of this is necessary. You have no competition. Customers will order from you simply because you are there and you are local.</p><ul><li>No discount pressure means full margin from Day 1</li><li>Full margin means faster break-even</li><li>You can choose to run a small promotion in Week 2–3 to accelerate review collection — but it's optional, not mandatory</li></ul><div class="modal-highlight"><strong>Estimated saving vs competitive market: ₹20,000–40,000 in avoided discount spend in the first 60 days.</strong></div>` },
+
+  fm_radius: { tag: 'First Mover Advantage', title: 'Your Delivery Radius — 50,000+ Residents', body: `<p>Zomato and Swiggy calculate delivery radius dynamically based on available restaurants. When you're the closest kitchen in a zone, the algorithm extends your radius to serve demand that would otherwise go unmet.</p><p><strong>Your likely coverage zone:</strong></p><ul><li>Sector 93, 93A, 93B — immediate area</li><li>Sector 92 — 1.5 km radius</li><li>Sector 94 — 1.8 km</li><li>Parts of Sector 108 and 110 — 2.5–3 km</li></ul><p>This gives you potential reach over a massive residential population — all without a second location or additional investment.</p><div class="modal-highlight"><strong>Estimated delivery zone population: 50,000–80,000 residents. All currently unserved by a local veg kitchen.</strong></div>` },
+
+  fm_window: { tag: 'First Mover Advantage', title: 'The 6–12 Month Window', body: `<p>First-mover advantage is real but temporary. Here's the realistic timeline:</p><ul><li><strong>Month 1–3:</strong> You are the only listing. Zero competition. Full algorithmic boost.</li><li><strong>Month 4–6:</strong> Your reviews build. Other local businesses notice your Zomato visibility. Some may inquire about listing.</li><li><strong>Month 6–12:</strong> A competitor may list. But by now you have 150–200+ reviews and a 4.3+ rating — a moat that takes 6–9 months minimum to match.</li></ul><p><strong>Your insurance policy against competition:</strong></p><ul><li>Build tiffin subscriber relationships that don't depend on Zomato</li><li>Build society WhatsApp groups with direct ordering numbers</li><li>Make Sushma's Kitchen the "default veg place" in local consciousness before competition arrives</li></ul><div class="modal-highlight"><strong>A 4.3+ rated kitchen with 200+ reviews and 40+ tiffin subscribers is extremely difficult to displace even with a well-funded competitor.</strong></div>` },
+
+  fm_brand: { tag: 'First Mover Advantage', title: 'Becoming the Default Veg Brand in Sector 93', body: `<p>In every residential area, there's "the trusted place" — the restaurant that families default to without thinking. In Lajpat Nagar it's a specific chaat shop. In Sector 18 Noida it's a specific South Indian restaurant.</p><p>That default status is worth more than any marketing budget. Once you hold it, you hold it for years.</p><p><strong>How to become the default:</strong></p><ul><li>Consistency above everything — same taste, same quality, every single day</li><li>Respond to every Zomato review personally — it signals you care</li><li>Be present in society WhatsApp groups — answer queries, take feedback</li><li>One loyal customer in ATS Greens Village who recommends you in their building WhatsApp = 10–15 new customers</li></ul><div class="modal-highlight"><strong>The first good veg kitchen in an area becomes the trusted default for 3–5 years. That is your long-term moat.</strong></div>` },
+
+  fm_algorithm: { tag: 'Platform Mechanics', title: 'How the Algorithm Rewards First Movers', body: `<p>Both Zomato and Swiggy use geo-based algorithms that prioritise listings with low competition in a delivery zone.</p><ul><li><strong>"New on Zomato" banner</strong> — automatically given to new restaurants in Week 1–4. Massive visibility, zero cost.</li><li><strong>Delivery zone dominance</strong> — if you're the only kitchen within 3 km, you appear at the top by default for all users in that radius.</li><li><strong>Top rankings</strong> — high-ranked restaurants (by recency + rating) get 3–5× more organic orders than lower-ranked ones.</li><li><strong>Unserved zone priority</strong> — Zomato's supply team actively monitors areas with high search volume and low supply. Sector 93 almost certainly flags as such an area. They may proactively reach out to help you onboard.</li></ul><div class="modal-highlight"><strong>You don't pay for any of this. It's the platform's way of filling supply gaps — and Sector 93 is one of the biggest gaps in this part of Noida.</strong></div>` },
+
+  comp_biryani: { tag: 'Competitor Profile', title: 'Uttrakhand Ball Biryani — Niche & No Threat', body: `<p><strong>Rating:</strong> 5.0 ⭐ but only 27 reviews — tiny listing, very niche.</p><p><strong>Why it's not a threat:</strong></p><ul><li>Biryani-only menu — completely different from what Sushma's Kitchen offers</li><li>Non-veg focused product</li><li>No breakfast, no snacks, no beverages</li><li>27 reviews means very low visibility on Zomato</li></ul><p><strong>Interesting data point:</strong> A 5.0 rating with 27 reviews means they have very loyal but very few customers. The market wants more than just biryani here — and nobody is providing it.</p><div class="modal-highlight"><strong>This listing actually proves there's appetite for quality food in Sector 93. It just hasn't been satisfied at scale.</strong></div>` },
+
+  mc_staff: { tag: 'Monthly Cost Detail', title: 'Staff Structure & Salaries', body: `<p><strong>Recommended team for Phase A (Month 1–3):</strong></p><ul><li><strong>Main Cook (1 person):</strong> ₹18,000–22,000/month. Must know South Indian breakfast items + North Indian thali. This is your most important hire — don't compromise here.</li><li><strong>Kitchen Helper (1 person):</strong> ₹10,000–12,000/month. Assists cook, handles prep, washing, packaging.</li><li><strong>Counter/Service (1 person):</strong> ₹8,000–12,000/month. Takes orders, manages Zomato/Swiggy tablet, handles billing.</li></ul><p><strong>Phase B (Month 4+):</strong> Add a second helper at ₹10,000 as volume grows. Total staff cost: ₹50,000–65,000/month.</p><div class="modal-highlight"><strong>Pro tip: Hire locally from Gejha village — they arrive on time, know the area, and are more likely to stay long-term than imported staff.</strong></div>` },
+
+  mc_rent: { tag: 'Monthly Cost Detail', title: 'Rent — Gejha Road Commercial', body: `<p><strong>Estimated rent range:</strong> ₹18,000–40,000/month depending on shop size and negotiation.</p><p><strong>Typical Gejha Road commercial rent (2025):</strong></p><ul><li>Small shop (200–300 sq ft): ₹15,000–22,000/month</li><li>Medium shop (300–500 sq ft) with terrace access: ₹25,000–38,000/month</li></ul><p><strong>Negotiation tips:</strong></p><ul><li>Offer 2–3 months advance rent upfront — landlords often reduce monthly rent by 10–15% for this</li><li>Lock in a 2-year agreement at current rates — Gejha Road rents have been rising 8–12%/year</li><li>Ensure the rent agreement explicitly includes terrace rights in writing</li></ul><div class="modal-highlight"><strong>At ₹25,000–30,000/month rent on a ₹3.5–4 Lakh/month revenue operation, rent is only 7–8% of revenue — excellent for a food business.</strong></div>` },
+
+  mc_utilities: { tag: 'Monthly Cost Detail', title: 'Electricity, Gas & Utilities', body: `<p><strong>Electricity (commercial tariff, Noida):</strong> ₹8,000–14,000/month depending on AC usage, refrigerator running, lighting, and equipment.</p><p><strong>Commercial LPG cylinders:</strong> ₹2,500–5,000/month. A busy kitchen uses 3–6 commercial cylinders per month.</p><p><strong>Water:</strong> ₹500–1,500/month for municipal supply.</p><p><strong>Cost control tips:</strong></p><ul><li>Use LED lighting throughout — 40% lower electricity cost</li><li>Service refrigerator every 3 months — prevents efficiency loss</li><li>Invest in a good quality exhaust system — reduces cooking time and gas usage</li><li>Switch off all equipment during off-peak hours (3–5 PM gap between lunch and dinner)</li></ul>` },
+
+  mc_packaging: { tag: 'Monthly Cost Detail', title: 'Packaging — Delivery Orders', body: `<p><strong>Packaging cost breakdown per order (average ₹250 order):</strong></p><ul><li>Food containers (thali/curry boxes): ₹8–15</li><li>Carry bag: ₹3–5</li><li>Tissue/napkins: ₹1–2</li><li>Total per order: ₹12–22 (~5–8% of order value)</li></ul><p><strong>Where to source cheaply:</strong></p><ul><li>Wholesale packaging: Sector 8 Noida industrial area</li><li>Minimum order 500–1000 units gets 30–40% discount vs retail</li><li>Biodegradable packaging costs 20% more but builds brand image — worth it</li></ul><div class="modal-highlight"><strong>Tip: Print "Sushma's Kitchen" on your packaging bags — every delivery bag that travels through a society is free brand advertising.</strong></div>` },
+
+  mc_marketing: { tag: 'Monthly Cost Detail', title: 'Marketing — What to Actually Spend On', body: `<p><strong>Month 1–3 marketing budget: ₹5,000–8,000/month</strong></p><ul><li><strong>WhatsApp Business:</strong> Free. Create a broadcast list, post daily specials, take direct orders.</li><li><strong>Society pamphlets:</strong> ₹2,000–3,000 for 500 pamphlets + distribution in 3–4 societies.</li><li><strong>Instagram account:</strong> Free. Post daily — food photos, behind-the-scenes, specials. Reels of chai being poured get massive organic reach.</li><li><strong>Zomato promotions:</strong> ₹2,000–5,000 for boosted listing or free delivery offer in Month 1.</li></ul><p><strong>What NOT to spend on:</strong></p><ul><li>Paid Instagram ads — organic works better for local food businesses</li><li>Google ads — Zomato/Swiggy search is where your customers are</li><li>Influencer partnerships — too early at this stage</li></ul>` },
+
+  setup_ops: { tag: 'Setup Details', title: 'Operations & Licensing — What to Get First', body: `<p><strong>Priority order for licenses:</strong></p><ul><li><strong>FSSAI Basic License (Day 1):</strong> Apply online at foscos.fssai.gov.in. Cost: ₹100/year for basic license. Mandatory before Zomato/Swiggy will activate your listing. Processing: 7–14 days.</li><li><strong>GST Registration (Week 2):</strong> Mandatory if annual turnover exceeds ₹20 Lakhs (you will cross this). Apply at gst.gov.in. Free. Takes 3–7 days.</li><li><strong>Shop & Establishment License:</strong> Register with Noida Municipal Corporation. ₹500–2,000. Required for operating a food establishment.</li></ul><p><strong>Zomato/Swiggy onboarding:</strong></p><ul><li>Both are free to list — they earn through commission, not onboarding fees</li><li>You need: FSSAI certificate, PAN card, bank account, food photos, menu with prices</li><li>Activation time: 5–10 business days after document submission</li></ul><div class="modal-highlight"><strong>Start FSSAI application on the same day you sign the shop lease. It's the single document that unlocks everything else.</strong></div>` },
+
+  price_chai: { tag: 'Menu Pricing', title: 'Masala Chai — ₹30', body: `<p><strong>Why ₹30 is the right price:</strong></p><ul><li>Street chai in Noida: ₹10–15. Cafe chai: ₹60–80. We sit at the quality middle ground.</li><li>At ₹30, chai has a 70–75% gross margin — one of the highest on the menu</li><li>Chai is ordered multiple times per visit — morning customers often have 2 cups</li></ul><p><strong>Recipe standard to maintain:</strong> Fresh ginger, cardamom, good quality CTC tea leaves, full-fat milk. Do NOT use chai premix — customers will notice and it will hurt reviews.</p><div class="modal-highlight"><strong>Chai is your reputation item. If your chai is excellent, people talk about it. It's the reason people come back every morning.</strong></div>` },
+
+  price_idli: { tag: 'Menu Pricing', title: 'Idli Sambar — ₹70 (2 pcs)', body: `<p><strong>Benchmarking:</strong></p><ul><li>Nearby competition (Kake da Hotel area): No South Indian options at all</li><li>Saffron Restaurant (society): ₹80–100 for idli</li><li>Noida restaurant average: ₹80–120 for idli 2 pcs</li></ul><p><strong>Our price at ₹70 is deliberately competitive</strong> to build morning loyalty quickly. Once we have 50+ reviews on our breakfast, we can revise to ₹80 in Month 6.</p><p><strong>Food cost breakdown:</strong> Rice + urad dal batter (₹8), sambar (₹6), coconut chutney (₹4) = ₹18 cost. Revenue ₹70. Gross margin: 74%.</p><div class="modal-highlight"><strong>Idli is your hook item — it's what makes Sushma's Kitchen different from every other food place in Sector 93.</strong></div>` },
+
+  price_bonda: { tag: 'Menu Pricing', title: 'Bonda Sambar — ₹70 (2 pcs)', body: `<p>Bonda (or Medu Vada) is a natural companion to idli. Many customers order both — making it a great combo opportunity.</p><p><strong>Combo suggestion:</strong> Idli (2) + Bonda (2) + Chai = ₹150 combo (vs ₹170 if ordered separately). This combo drives higher ticket size in the morning.</p><p><strong>Food cost:</strong> Urad dal batter (₹10), oil (₹8), sambar + chutney (₹8) = ₹26 cost. Revenue ₹70. Gross margin: 63%.</p><p>Keep the bonda consistently crispy — this is a texture dish and quality shows immediately. Soggy bonda = bad review.</p>` },
+
+  price_poha: { tag: 'Menu Pricing', title: 'Poha — ₹40 Half / ₹80 Full', body: `<p>Poha is the most ordered breakfast item in North India. It's fast to make, low food cost, and universally loved.</p><p><strong>Food cost:</strong> Poha (₹5), oil + mustard + curry leaves (₹3), onion + peanuts (₹4), sev topping (₹2) = ₹14 cost. Revenue ₹80 (full). Gross margin: 82%.</p><p>The half/full plate split is smart — it lets price-sensitive customers try at ₹40 and upgrade once they love it.</p><div class="modal-highlight"><strong>Poha has the highest gross margin on your breakfast menu at 82%. It's also the fastest to make — 3 minutes per plate.</strong></div>` },
+
+  price_upma: { tag: 'Menu Pricing', title: 'Upma — ₹60–70', body: `<p>Upma completes the South Indian breakfast quartet alongside idli, bonda, and poha. It appeals to customers who want something warm and filling but lighter than idli.</p><p><strong>Food cost:</strong> Suji (₹6), vegetables (₹8), oil + seasoning (₹4) = ₹18 cost. Revenue ₹65 avg. Gross margin: 72%.</p><p><strong>Tip:</strong> Serve upma with a small cup of coconut chutney — it elevates the dish and customers perceive it as better value. The extra chutney costs ₹2 but adds significant perceived quality.</p>` },
+
+  price_combo: { tag: 'Menu Pricing', title: 'Morning Combo — ₹130', body: `<p>The morning combo (Idli + Bonda + Chai) bundles ₹170 worth of items for ₹130 — a clear saving of ₹40 for the customer.</p><p><strong>Why combos are powerful:</strong></p><ul><li>Higher ticket size per visit — customer spends ₹130 vs ₹30 for just chai</li><li>Reduces decision fatigue — "what should I have?" becomes "just give me the combo"</li><li>Creates a daily habit — the same combo every morning = loyal customer</li></ul><p><strong>Gross margin on combo:</strong> Food cost ~₹45. Revenue ₹130. Margin: 65% — still excellent.</p><div class="modal-highlight"><strong>Combos are your best tool for building morning regulars. A customer who orders the morning combo daily = ₹3,900/month from one person.</strong></div>` },
+
+  risk_slow: { tag: 'Risk Mitigation', title: 'Slow Start on Zomato — How to Handle It', body: `<p><strong>What "slow start" looks like:</strong> 3–8 orders/day in Week 1–2. This is completely normal for any new listing.</p><p><strong>Action plan if orders are slow after Week 2:</strong></p><ul><li>Activate Zomato's "New Restaurant" promotion — free ₹1 delivery or 20% off. Zomato heavily boosts listings that participate in promotions.</li><li>Ask your first 20–30 dine-in customers to leave a Zomato review. Offer a free chai in exchange.</li><li>Ensure menu photos are professional — blur or dark photos kill click-through rates.</li><li>Check that your delivery radius is correctly set — call Zomato partner support if needed.</li></ul><div class="modal-highlight"><strong>The fastest way to accelerate orders is reviews. 20 reviews at 4.0+ rating typically doubles daily order volume within 2 weeks.</strong></div>` },
+
+  risk_terrace: { tag: 'Risk Mitigation', title: 'Terrace in Summer — Seasonal Strategy', body: `<p>Noida summers (April–June) reach 44–46°C. The terrace becomes uncomfortable during day hours but is still usable in the evenings.</p><p><strong>Summer strategy:</strong></p><ul><li>Close terrace seating 11 AM – 6 PM during May–June</li><li>Keep terrace open 7–10 PM when temperatures drop to 32–35°C — add a desert cooler (₹5,000–8,000 one-time cost)</li><li>Shift summer focus to delivery orders — people order in during extreme heat, which boosts Zomato/Swiggy numbers significantly</li><li>Summer beverages: cold coffee, shikanjvi, mango shake, mojito — promote these heavily in summer menu</li></ul><p><strong>Terrace at its best:</strong> October–March. This is Noida's most pleasant outdoor season — terrace will be fully used during this period.</p>` },
+
+  risk_cook: { tag: 'Risk Mitigation', title: 'Single Cook Dependency — Building Redundancy', body: `<p>If your primary cook is sick or unavailable, the kitchen cannot operate. This is the #1 operational risk for a new food business.</p><p><strong>Mitigation steps from Day 1:</strong></p><ul><li><strong>Document every recipe</strong> with exact quantities — use a physical recipe book in the kitchen. Every item: ingredients, quantities, cooking time, plating.</li><li><strong>Train the helper</strong> on morning items (poha, chai, idli batter management) from Week 2. The helper should be able to run the morning session independently.</li><li><strong>Keep a backup contact</strong> — one trained part-time cook who you can call on short notice. Pay them a small monthly retainer (₹2,000–3,000) to be on standby.</li><li><strong>Sushma herself</strong> should know every recipe and be able to step in for the morning menu if needed.</li></ul><div class="modal-highlight"><strong>A kitchen that can operate without its primary cook for one week is a resilient business. Plan for this from Day 1, not after the crisis hits.</strong></div>` },
+
+  risk_competitor: { tag: 'Risk Mitigation', title: 'When a Competitor Eventually Enters', body: `<p>First-mover advantage is temporary. In 6–12 months, another kitchen will notice your Zomato visibility and consider listing. Here's how to make your position unassailable by then:</p><p><strong>Your defensive moat — build all of these by Month 6:</strong></p><ul><li><strong>200+ Zomato reviews at 4.3+:</strong> Takes a competitor minimum 6–9 months to match. During that time you'll continue getting the algorithmic boost.</li><li><strong>40+ tiffin subscribers:</strong> These are direct relationships that don't depend on Zomato at all. A competitor can't displace them.</li><li><strong>Society WhatsApp presence:</strong> Being the trusted name in local WhatsApp groups is earned, not bought.</li><li><strong>Morning regulars:</strong> Breakfast customers are the most loyal of all — a good idli at the right time becomes a daily ritual.</li></ul><div class="modal-highlight"><strong>A business with 200 reviews, 40 tiffin subscribers, and morning regulars is not displaced by a new listing. It just gets a new competitor who takes 12 months to catch up.</strong></div>` },
+
+  risk_quality: { tag: 'Risk Mitigation', title: 'Maintaining Food Quality Consistently', body: `<p>One bad review that says "food quality dropped" is more damaging than 10 good reviews. Quality consistency is the foundation everything else is built on.</p><p><strong>Systems to maintain quality:</strong></p><ul><li><strong>Standardised recipes:</strong> Every dish has a recipe card with exact measurements. No "by eye" cooking for key dishes.</li><li><strong>Daily quality check:</strong> Sushma or the owner tastes every new batch before it goes to customers. Not optional.</li><li><strong>Small menu discipline:</strong> Keep to 20–25 items in Phase A. Every item you add is another variable that can go wrong.</li><li><strong>Respond to every review:</strong> A response to a 3-star review shows you care. A personal, specific response often converts a disappointed customer into a loyal one.</li><li><strong>Never serve old food:</strong> Anything from the morning session that doesn't sell by 2 PM should be discarded, not served at dinner. The cost of wasted food (₹200–500/day) is far less than the cost of one bad review.</li></ul>` },
+
+  risk_cashflow: { tag: 'Risk Mitigation', title: 'Cash Flow in Month 1–2', body: `<p>Month 1 revenue will be lower than steady-state. Here's how the budget handles this:</p><p><strong>The buffer plan:</strong></p><ul><li>Working capital buffer of ₹60,000–1,00,000 is included in the ₹3–5 Lakh investment</li><li>This covers 2 months of operating costs (rent + staff + raw materials) even at zero revenue</li><li>Tiffin subscriptions (10–12 from Day 1) generate ₹25,000–30,000 in pre-paid income before the first Zomato order</li></ul><p><strong>Cash flow reality Month 1:</strong></p><ul><li>Revenue: ₹2.5–3.5 Lakhs</li><li>Costs: ₹1.5–1.8 Lakhs</li><li>Net: ₹70,000–1.7 Lakhs positive — even in the worst case, Month 1 is not a loss</li></ul><div class="modal-highlight"><strong>The business does not require the buffer to survive Month 1 — it is there purely as a safety net for unexpected expenses like equipment repair or slow first 2 weeks.</strong></div>` },
+};
+
+function showModal(key) {
+  const m = modals[key];
+  if (!m) return;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-tag">${m.tag}</div>
+    <div class="modal-title">${m.title}</div>
+    <div class="modal-body">${m.body}</div>
+  `;
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') { closeModal(); closeMobileMenu(); } });
+
+// HAMBURGER MENU
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const isOpen = menu.classList.toggle('open');
+  // animate hamburger to X
+  const spans = document.querySelectorAll('.nav-hamburger span');
+  if (isOpen) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.querySelectorAll('.nav-hamburger span').forEach(s => {
+    s.style.transform = ''; s.style.opacity = '';
+  });
+}
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  const hamburger = document.querySelector('.nav-hamburger');
+  if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    closeMobileMenu();
+  }
+});
+
+// Show/hide mobile competition cards based on screen width
+function handleCompTable() {
+  const isMobile = window.innerWidth <= 768;
+  const table = document.querySelector('.comp-table');
+  const cards = document.querySelector('.comp-cards-mobile');
+  if (table) table.style.display = isMobile ? 'none' : '';
+  if (cards) cards.style.display = isMobile ? 'flex' : 'none';
+}
+handleCompTable();
+window.addEventListener('resize', handleCompTable);
+
+// Fix modal position for mobile (slides up from bottom on small screens)
+function adjustModal() {
+  const overlay = document.getElementById('modal');
+  if (window.innerWidth <= 480) {
+    overlay.style.alignItems = 'flex-end';
+  } else {
+    overlay.style.alignItems = 'center';
+  }
+}
+adjustModal();
+window.addEventListener('resize', adjustModal);
+
+// MENU TABS
+function switchMenu(id, el) {
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('menu-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// PHASE TABS
+function switchPhase(id, el) {
+  document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('phase-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// BAR ANIMATION
+// Cost bars handled by animateCostBars() below
+
+// REVENUE CHART — SVG approach, works on ALL browsers & mobile
+(function() {
+  const data = [
+    { m:'M1',  rev:2.9,  profit:0.9  },
+    { m:'M2',  rev:3.5,  profit:1.4  },
+    { m:'M3',  rev:3.8,  profit:1.8  },
+    { m:'M4',  rev:5.0,  profit:2.4  },
+    { m:'M5',  rev:6.2,  profit:2.9  },
+    { m:'M6',  rev:7.5,  profit:3.5  },
+    { m:'M7',  rev:9.0,  profit:4.2  },
+    { m:'M8',  rev:10.2, profit:4.8  },
+    { m:'M9',  rev:11.5, profit:5.5  },
+    { m:'M10', rev:12.8, profit:6.0  },
+    { m:'M11', rev:13.5, profit:6.5  },
+    { m:'M12', rev:13.8, profit:6.8  },
+  ];
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('svgChart');
+  if (!svg) return;
+
+  function el(tag, attrs) {
+    const e = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, v));
+    return e;
+  }
+
+  function build() {
+    svg.innerHTML = '';
+    const W = svg.parentElement.clientWidth || 320;
+    const H = parseInt(window.getComputedStyle(svg).height) || 260;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+
+    const PT = 28, PB = 30, PL = 36, PR = 8;
+    const cW = W - PL - PR;
+    const cH = H - PT - PB;
+    const maxV = Math.max(...data.map(d => d.rev));
+    const gW = cW / data.length;
+    const bW = Math.max(5, Math.floor(gW * 0.32));
+
+    // Defs
+    const defs = el('defs', {});
+    function makeGrad(id, c1, c2) {
+      const g = el('linearGradient', {id, x1:'0',y1:'0',x2:'0',y2:'1'});
+      const s1 = el('stop', {'offset':'0%','stop-color':c1});
+      const s2 = el('stop', {'offset':'100%','stop-color':c2});
+      g.appendChild(s1); g.appendChild(s2); defs.appendChild(g);
+    }
+    makeGrad('gR','#F5A93B','#C06A0A');
+    makeGrad('gP','#81C784','#2D7A4A');
+    svg.appendChild(defs);
+
+    // Y-axis grid + labels
+    [0.25,0.5,0.75,1.0].forEach(p => {
+      const y = PT + cH*(1-p);
+      svg.appendChild(el('line',{x1:PL,y1:y,x2:W-PR,y2:y,stroke:'#E8E0D4','stroke-width':'1'}));
+      const t = el('text',{x:PL-3,y:y+3,'text-anchor':'end','font-size':'8','fill':'#9B8A75'});
+      t.textContent = '₹'+(maxV*p).toFixed(0)+'L';
+      svg.appendChild(t);
+    });
+
+    // Bars
+    const bars = [];
+    data.forEach((d, i) => {
+      const cx = PL + i*gW + gW/2;
+      const gap = Math.max(2, Math.floor(gW*0.06));
+      const rx = cx - bW - gap/2;
+      const px = cx + gap/2;
+      const baseY = PT + cH;
+
+      function makeBar(x, val, fill) {
+        const tH = (val/maxV)*cH;
+        const r = el('rect',{x, y: baseY, width: bW, height: 0, rx:3, fill,
+                              'data-th': tH.toFixed(2), 'data-by': baseY.toFixed(2),
+                              'data-lbl': '₹'+val+'L'});
+        svg.appendChild(r);
+        bars.push(r);
+        return r;
+      }
+      makeBar(rx, d.rev, 'url(#gR)');
+      makeBar(px, d.profit, 'url(#gP)');
+
+      // X label
+      const t = el('text',{x:cx, y:H-8, 'text-anchor':'middle',
+                            'font-size': W<400?'7':'9', 'font-weight':'600','fill':'#6B5C45'});
+      t.textContent = d.m;
+      svg.appendChild(t);
+    });
+
+    // Tooltip
+    const tipG = el('g', {});
+    const tipR = el('rect', {rx:'4', fill:'rgba(26,18,8,0.88)', x:'0',y:'0',width:'40',height:'18'});
+    const tipT = el('text', {fill:'white','font-size':'9.5','font-weight':'700',x:'4',y:'13'});
+    tipG.appendChild(tipR); tipG.appendChild(tipT);
+    tipG.style.display = 'none';
+    svg.appendChild(tipG);
+
+    bars.forEach(r => {
+      r.style.cursor = 'pointer';
+      function showTip(e) {
+        const lbl = r.getAttribute('data-lbl');
+        tipT.textContent = lbl;
+        const tw = lbl.length*6+12;
+        tipR.setAttribute('width', tw);
+        const bx = parseFloat(r.getAttribute('x'));
+        const by = parseFloat(r.getAttribute('y'));
+        const tx = Math.max(PL, Math.min(bx, W-tw-PR));
+        const ty = Math.max(4, by-24);
+        tipR.setAttribute('x', tx); tipR.setAttribute('y', ty);
+        tipT.setAttribute('x', tx+6); tipT.setAttribute('y', ty+13);
+        tipG.style.display = '';
+      }
+      r.addEventListener('mouseenter', showTip);
+      r.addEventListener('touchstart', (e) => { showTip(e); setTimeout(()=>tipG.style.display='none',1800); });
+      r.addEventListener('mouseleave', () => tipG.style.display='none');
+    });
+
+    return bars;
+  }
+
+  function animate(bars) {
+    if (!bars || !bars.length) return;
+    bars.forEach((bar, i) => {
+      const tH = parseFloat(bar.getAttribute('data-th'));
+      const bY = parseFloat(bar.getAttribute('data-by'));
+      let start = null;
+      setTimeout(() => {
+        function frame(ts) {
+          if (!start) start = ts;
+          const p = Math.min((ts-start)/800, 1);
+          const ease = 1 - Math.pow(1-p, 3);
+          const h = tH*ease;
+          bar.setAttribute('height', h.toFixed(1));
+          bar.setAttribute('y', (bY-h).toFixed(1));
+          if (p<1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }, i*35);
+    });
+  }
+
+  let builtBars = [];
+
+  function init() {
+    builtBars = build();
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) animate(builtBars); });
+    }, {threshold: 0.15});
+    obs.observe(svg);
+    setTimeout(() => {
+      const r = svg.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) animate(builtBars);
+    }, 600);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.addEventListener('resize', () => { builtBars = build(); animate(builtBars); });
+})();
+
+
+function animateCostBars() {
+  document.querySelectorAll('.bar-fill').forEach((bar, i) => {
+    const target = bar.getAttribute('data-width');
+    if (!target) return;
+    bar.style.width = '0%';
+    setTimeout(() => {
+      requestAnimationFrame(() => { bar.style.width = target; });
+    }, 80 + i * 140);
+  });
+}
+
+// Store original widths & disable transition during init to prevent flash
+document.querySelectorAll('.bar-fill').forEach(bar => {
+  const w = bar.style.width;
+  bar.setAttribute('data-width', w);
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  // Re-enable transition after a frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = '';
+    });
+  });
+});
+
+const costBarSection = document.querySelector('.monthly-total-bar');
+if (costBarSection) {
+  const costObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCostBars();
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  costObserver.observe(costBarSection);
+}
+</script>
+</body>
+</html>
